@@ -13,23 +13,13 @@
 #include "game1.h"
 
 
-
-
 using namespace std;
 using namespace cv;
 
-/*
-random_device rd;
-mt19937 gen(rd());
-int width = (int)GetSystemMetrics(SM_CXSCREEN);
-int height = (int)GetSystemMetrics(SM_CYSCREEN);
-uniform_int_distribution<> randX(0, width);
-uniform_int_distribution<> randY(0, height);
-*/
 
 int main(int argc, char** argv)
 {
-
+    
     //On met tout en place pour l'affichage
     Display display;
    //Les settings
@@ -44,7 +34,6 @@ int main(int argc, char** argv)
     t = clock();
     clock_t t_frame;
     t_frame = t;
-
 
 
     //sortie du programme si click sur exit

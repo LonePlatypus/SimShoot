@@ -1,4 +1,19 @@
-﻿  TargetShooter.cpp
-  game1.cpp
+﻿  Display.cpp
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Display.cpp(73,43): warning C4244: '=' : conversion de 'double' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=uchar
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Display.cpp(74,43): warning C4244: '=' : conversion de 'double' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=uchar
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Display.cpp(75,43): warning C4244: '=' : conversion de 'double' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=uchar
+          ]
+  TargetShooter.cpp
   Génération de code en cours...
-  TargetShooter.vcxproj -> C:\Users\Sigma\source\repos\TargetShooter\TargetShooter\x64\Debug\TargetShooter.exe
+  TargetShooter.vcxproj -> C:\Users\Sigma\source\repos\SimShoot\SimShoot\x64\Debug\TargetShooter.exe

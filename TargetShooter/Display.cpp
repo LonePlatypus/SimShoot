@@ -104,9 +104,9 @@ int Display::resetDisplayedbackground()
 //On charge les deux images de cibles
 int Display::loadTargets()
 {
-    loadJPGTarget("C:/Users/Sigma/Pictures/target_IPSC.jpg", (1.0/5.0));
+    loadJPGTarget("./img/target_IPSC.jpg", (1.0/5.0));
 
-    loadPNGTarget("C:/Users/Sigma/Pictures/target_round.png", (1.0 /30.0));
+    loadPNGTarget("./img/target_round.png", (1.0 /30.0));
 
     return 0;
 }
@@ -154,7 +154,7 @@ int Display::display(int delay)
 int Display::loadHit()
 {
     double ratio = 0.02;
-    cv::Mat img = cv::imread("C:/Users/Sigma/Pictures/hit.png", cv::IMREAD_UNCHANGED);
+    cv::Mat img = cv::imread("./img/hit.png", cv::IMREAD_UNCHANGED);
     resize(img, img, cv::Size(), ratio, ratio);
 
     hit = img;
