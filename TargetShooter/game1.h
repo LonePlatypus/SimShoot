@@ -6,6 +6,18 @@
 
 using namespace std;
 
+struct Random
+{
+  random_device rd;
+  mt19937 gen;
+  uniform_int_distribution<> randX;
+  uniform_int_distribution<> randY;
+
+  Random();
+
+  int rndX();
+  int rndY();
+};
 
 class game1
 {
@@ -22,6 +34,8 @@ public :
 	int nbCible;
 	int nbHits;
 	int targetId;
+
+  Random rnd;
 
 	game1(settings *settings, int target);
 

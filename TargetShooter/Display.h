@@ -1,7 +1,6 @@
 #pragma once
 
 #include <opencv2/opencv.hpp>
-#include <Windows.h>
 #include <random>
 #include "settings.h"
 #include "Hit.h"
@@ -10,6 +9,9 @@
 
 class Display
 {
+public:
+  static void GetScreenResoluton(int& rfWidth,
+                                 int& rfHeight);
 public:
 
 	int display_width;

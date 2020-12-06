@@ -1,10 +1,44 @@
 #include "Display.h"
 
+#ifdef _WIN32
+#  include <Windows.h>
+#elif __linux__
+//#  include <X11/Xlib.h>
+#endif
+
+#ifdef _WIN32
+void getScreenSizeWin32(int& rfWidth,
+                        int& rfHeight)
+{
+	rfWidth = (int)GetSystemMetrics(SM_CXSCREEN);
+	rfHeight = (int)GetSystemMetrics(SM_CYSCREEN);
+}
+#endif
+
+#ifdef __linux__
+# include "Linux/screen.h"
+void getScreenSizeLinux(int& rfWidth,
+                        int& rfHeight)
+{
+  Linux_X11GetScreenSize(&rfWidth, &rfHeight);
+}
+#endif
+
+
+void Display::GetScreenResoluton(
+    int& rfWidth,
+    int& rfHeight)
+{
+#ifdef _WIN32
+  getScreenSizeWin32(rfWidth, rfHeight);
+#elif __linux__
+  getScreenSizeLinux(rfWidth, rfHeight);
+#endif
+}
+
 Display::Display()
 {
-
-	display_width = (int)GetSystemMetrics(SM_CXSCREEN);
-	display_height = (int)GetSystemMetrics(SM_CYSCREEN);
+  GetScreenResoluton(display_width, display_height);
 
 	background = cv::Mat::zeros(cv::Size(display_width, display_height), CV_8UC3);
 	background = cv::Scalar(255, 255, 255);
@@ -14,7 +48,6 @@ Display::Display()
 
     loadTargets();
     loadHit();
-
 }
 
 
@@ -106,7 +139,8 @@ int Display::loadTargets()
 {
     loadJPGTarget("./img/target_IPSC.jpg", (1.0/5.0));
 
-    loadPNGTarget("./img/target_round.png", (1.0 /30.0));
+    loadJPGTarget("./img/target_jozy.jpg", 1.);
+    //loadPNGTarget("./img/target_round.png", (1.0 /30.0));
 
     return 0;
 }

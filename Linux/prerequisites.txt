@@ -1,0 +1,3 @@
+Program requires you to manually install following packages:
+
+libopencv-dev
