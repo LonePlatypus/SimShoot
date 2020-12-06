@@ -1,11 +1,34 @@
 #include "game1.h"
+#include "Display.h"
 
-random_device rd;
-mt19937 gen(rd());
-int width = (int)GetSystemMetrics(SM_CXSCREEN);
-int height = (int)GetSystemMetrics(SM_CYSCREEN);
-uniform_int_distribution<> randX(0, width);
-uniform_int_distribution<> randY(0, height);
+//random_device rd;
+//mt19937 gen(rd());
+//int width = (int)GetSystemMetrics(SM_CXSCREEN);
+//int height = (int)GetSystemMetrics(SM_CYSCREEN);
+//uniform_int_distribution<> randX(0, width);
+//uniform_int_distribution<> randY(0, height);
+
+Random::Random()
+  : gen(rd())
+{
+  int width = -1;
+  int height = -1;
+  Display::GetScreenResoluton(width, height);
+
+  randX = uniform_int_distribution<>(0, width);
+  randY = uniform_int_distribution<>(0, height);
+}
+
+
+int Random::rndX()
+{
+  return randX(gen);
+}
+
+int Random::rndY()
+{
+  return randY(gen);
+}
 
 
 game1::game1(settings *settings, int target)
@@ -75,13 +98,13 @@ int game1::update(Display *display)
 		//sinon on génère la nouvelle position de la cible sur l'écran
 		else
 		{
-			int rX = randX(gen);
-			int rY = randY(gen);
+			int rX = rnd.rndX();
+			int rY = rnd.rndY();
 
 			while (display->addTarget(rX, rY, targetId) == -1)
 			{
-				rX = randX(gen);
-				rY = randY(gen);
+				rX = rnd.rndX();
+				rY = rnd.rndY();
 			}
 			up = true;
 			t = clock();

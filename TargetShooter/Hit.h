@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <iostream>
-#include <Windows.h>
 #include "opencv2/highgui/highgui.hpp"
 
 #define SHOOTING_NAME "Shooting screen"
