@@ -11,6 +11,7 @@
 #include "Display.h"
 #include "Hit.h"
 #include "game1.h"
+#include "Camera.h"
 
 
 using namespace std;
@@ -19,10 +20,14 @@ using namespace cv;
 
 int main(int argc, char** argv)
 {
-    
-    //On met tout en place pour l'affichage
+     //On met tout en place pour l'affichage
     Display display;
-   //Les settings
+ 
+    Camera camera("./img/marker.png");
+    camera.getTransformCamScreen(display);
+    
+    
+    //Les settings
     settings settings;
     //Les inputs (souris / caméra)
     Hit hit;  
