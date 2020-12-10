@@ -24,8 +24,8 @@ int main(int argc, char** argv)
     Display display;
  
     Camera camera("./img/marker.png");
-    camera.getTransformCamScreen(display);
-    
+    //camera.getTransformCamScreen(display);
+    camera.getTransformCamScreenSimple(display);
     
     //Les settings
     settings settings;

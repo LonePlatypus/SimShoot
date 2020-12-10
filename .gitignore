@@ -1,0 +1,12 @@
+
+*.ipch
+*.obj
+*.obj
+*.obj
+*.exe
+*.tlog
+*.tlog
+TargetShooter/x64/Debug/TargetShooter.tlog/CL.command.1.tlog
+*.tlog
+x64/Debug/TargetShooter.pdb
+x64/Debug/TargetShooter.ilk
