@@ -64,3 +64,103 @@ int settings::displaySettings()
 
     return 0;
 }
+
+void settings::setWidth(int width)
+{
+    this->settings_width = width;
+}
+
+void settings::setHeight(int height)
+{
+    settings_height = height;
+}
+
+int settings::getWidth()
+{
+    return settings_width;
+}
+
+int settings::getHeight()
+{
+    return settings_height;
+}
+
+void settings::setTargetISPC(bool state)
+{
+    Target_ISPC = state;
+}
+
+void settings::setTargetRound(bool state)
+{
+    Target_round = state;
+}
+
+bool settings::getTargetISPC()
+{
+    return Target_ISPC;
+}
+
+bool settings::getTargetRound()
+{
+    return Target_round;
+}
+
+void settings::setStop(bool state)
+{
+    stop = state;
+}
+
+void settings::setStart(bool state)
+{
+    start = state;
+}
+
+void settings::setExit(bool state)
+{
+    exit = state;
+}
+
+bool settings::getStop()
+{
+    return stop;
+}
+
+bool settings::getStart()
+{
+    return start;
+}
+
+bool settings::getExit()
+{
+    return exit;
+}
+
+void settings::setUpTime(double time)
+{
+    this->up_time = time;
+}
+
+void settings::setDownTime(double time)
+{
+    this->down_time = time;
+}
+
+void settings::setNbCible(int nb)
+{
+    this->nbCibles = nb;
+}
+
+double settings::getUpTime()
+{
+    return up_time;
+}
+
+double settings::getDownTime()
+{
+    return down_time;
+}
+
+int settings::getNbCibles()
+{
+    return nbCibles;
+}

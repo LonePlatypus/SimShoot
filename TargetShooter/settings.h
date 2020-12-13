@@ -5,28 +5,57 @@
 
 class settings
 {
-public:
+
+private :
+
+    cv::Mat settings_frame;
 
     int settings_width;
     int settings_height;
-    cv::Mat settings_frame;
-
 
     bool Target_ISPC;
     bool Target_round;
-    double up_time;
-    double down_time;
 
     bool stop;
     bool start;
     bool exit;
 
+
+
+    double up_time;
+    double down_time;
     int nbCibles;
 
+public:
 
     settings();
 
     int displaySettings();
+
+    void setWidth(int width);
+    void setHeight(int height);
+    int getWidth();
+    int getHeight();
+
+    void setTargetISPC(bool state);
+    void setTargetRound(bool state);
+    bool getTargetISPC();
+    bool getTargetRound();
+
+
+    void setStop(bool state);
+    void setStart(bool state);
+    void setExit(bool state);
+    bool getStop();
+    bool getStart();
+    bool getExit();
+
+    void setUpTime(double time);
+    void setDownTime(double time);
+    void setNbCible(int nb);
+    double getUpTime();
+    double getDownTime();
+    int getNbCibles();
 
 };
 

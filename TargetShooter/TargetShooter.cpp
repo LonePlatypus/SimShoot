@@ -42,7 +42,7 @@ int main(int argc, char** argv)
 
 
     //sortie du programme si click sur exit
-    while (settings.exit == false)
+    while (settings.getExit() == false)
     {
         hit.inputMouse();
         display.updateHit(&hit);
@@ -61,24 +61,24 @@ int main(int argc, char** argv)
 
 
             //si on veut arrêter le jeu
-            if (settings.stop || game.nbCible < 0)
+            if (settings.getStop() || game.getNbCible() < 0)
             {
-                settings.stop = false;
+                settings.setStop(false);
                 game.stop(&display);
                 //game.scores()
                 game.reset();
 
             }
             //démarage du jeu avec les settings courants
-            else if (settings.start)
+            else if (settings.getStart())
             {
-                settings.start = false;
+                settings.setStart(false);
                 game.start(&settings, display.getTargetId(&settings));
                 game.countDownScreen(&display, 3);
 
             }
             //si le jeu est lancé, on traite les tirs + l'affichage
-            else if (game.state == 1)
+            else if (game.getState() == 1)
             {
                 game.update(&display);
             }

@@ -7,13 +7,16 @@
 
 class Hit
 {
-public :
+private :
 
 	bool detected;
 	int xHit;
 	int yHit;
 
 	std::string webcam_path;
+
+public :
+
 
 	Hit();
 
@@ -22,6 +25,13 @@ public :
 
 	static void CallBackMouse(int event, int x, int y, int flags, void* userdata);
 
-	
+	bool getDetected();
+	void setDetected(bool state);
+
+	int getHitX();
+	int getHitY();
+	void setHitX(int x);
+	void setHitY(int y);
+
 };
 

@@ -25,7 +25,7 @@ int Camera::getTransformCamScreen(Display display)
 {
 	//On construit l'image avec les coins "aruco"
 	cv::Mat img;
-	img = cv::Mat::zeros(cv::Size(display.display_width, display.display_height), CV_8UC3);
+	img = cv::Mat::zeros(cv::Size(display.getDisplayWidth(), display.getDisplayHeight()), CV_8UC3);
 	img = cv::Scalar(255, 255, 255);
 
 	int overlay_height = markerImg.rows;
@@ -34,34 +34,34 @@ int Camera::getTransformCamScreen(Display display)
 	int Y = (overlay_height/2);
 	int X = (overlay_width/2);
 
-	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.display_width && Y + (int)(overlay_height / 2) <= display.display_height)
+	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.getDisplayWidth() && Y + (int)(overlay_height / 2) <= display.getDisplayHeight())
 	{
 		cv::Rect center(X - overlay_width / 2, Y - overlay_height / 2, overlay_width, overlay_height);
 		markerImg.copyTo(img(center));
 	}
 
-	Y = display.display_height - (overlay_height / 2)-21;
+	Y = display.getDisplayHeight() - (overlay_height / 2)-21;
 	X = (overlay_width / 2);
 
-	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.display_width && Y + (int)(overlay_height / 2) <= display.display_height)
+	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.getDisplayWidth() && Y + (int)(overlay_height / 2) <= display.getDisplayHeight())
 	{
 		cv::Rect center(X - overlay_width / 2, Y - overlay_height / 2, overlay_width, overlay_height);
 		markerImg.copyTo(img(center));
 	}
 
-	Y = display.display_height-(overlay_height / 2)-21;
-	X = display.display_width - (overlay_width / 2)-1;
+	Y = display.getDisplayHeight()-(overlay_height / 2)-21;
+	X = display.getDisplayWidth() - (overlay_width / 2)-1;
 
-	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.display_width && Y + (int)(overlay_height / 2) <= display.display_height)
+	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.getDisplayWidth() && Y + (int)(overlay_height / 2) <= display.getDisplayHeight())
 	{
 		cv::Rect center(X - overlay_width / 2, Y - overlay_height / 2, overlay_width, overlay_height);
 		markerImg.copyTo(img(center));
 	}
 
 	Y = (overlay_height / 2);
-	X = display.display_width -(overlay_width / 2)-1;
+	X = display.getDisplayWidth() -(overlay_width / 2)-1;
 
-	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.display_width && Y + (int)(overlay_height / 2) <= display.display_height)
+	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.getDisplayWidth() && Y + (int)(overlay_height / 2) <= display.getDisplayHeight())
 	{
 		cv::Rect center(X - overlay_width / 2, Y - overlay_height / 2, overlay_width, overlay_height);
 		markerImg.copyTo(img(center));
@@ -80,7 +80,7 @@ int Camera::getTransformCamScreen(Display display)
 	//NO WORKING EITHER
 	//std::vector<aruconano::Marker> markers = aruconano::MarkerDetector::detect(img);
 
-	img = cv::Mat::zeros(cv::Size(display.display_width, display.display_height), CV_8UC3);
+	img = cv::Mat::zeros(cv::Size(display.getDisplayWidth(), display.getDisplayHeight()), CV_8UC3);
 	img = cv::Scalar(255, 255, 255);
 
 	//TEST detection et affichage des markers ...FAIL
@@ -97,8 +97,8 @@ int Camera::getTransformCamScreen(Display display)
 int Camera::getTransformCamScreenSimple(Display display)
 {
 
-	width = display.display_width;
-	height = display.display_height;
+	setWidth(display.getDisplayWidth());
+	setHeight(display.getDisplayHeight());
 
 	//On construit l'image verte
 	cv::Mat img;
@@ -361,4 +361,24 @@ cv::Vec2f Camera::computeScreenToGame(cv::Vec2f point)
 
 	return ret;
 
+}
+
+int Camera::getWidth()
+{
+	return this->width;
+}
+
+int Camera::getHeight()
+{
+	return this->height;
+}
+
+void Camera::setWidth(int width_)
+{
+	this->width = width_;
+}
+
+void Camera::setHeight(int height_)
+{
+	this->height = height_;
 }

@@ -19,6 +19,36 @@ void Hit::CallBackMouse(int event, int x, int y, int flags, void* userdata)
     }
 }
 
+bool Hit::getDetected()
+{
+    return this->detected;
+}
+
+void Hit::setDetected(bool state)
+{
+    this->detected = state;
+}
+
+int Hit::getHitX()
+{
+    return this->xHit;
+}
+
+int Hit::getHitY()
+{
+    return this->yHit;
+}
+
+void Hit::setHitX(int x)
+{
+    this->xHit = x;
+}
+
+void Hit::setHitY(int y)
+{
+    this->yHit = y;
+}
+
 //TODO
 int Hit::inputCamera(std::string path)
 {

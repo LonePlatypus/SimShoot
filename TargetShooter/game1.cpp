@@ -35,10 +35,10 @@ game1::game1(settings *settings, int target)
 {
 	state = 0;
 	up = false;
-	nbCible = settings->nbCibles;
+	nbCible = settings->getNbCibles();
 	nbHits = 0;
-	up_time = settings->up_time;
-	down_time = settings->down_time;
+	up_time = settings->getUpTime();
+	down_time = settings->getDownTime();
 	targetId = target;
 
 	t = clock();
@@ -53,7 +53,7 @@ int game1::countDownScreen(Display *display, int time)
 		text = "Starting in ";
 		text = text + to_string(i);
 		text = text +"s";
-		cv::putText(display->displayed_background, text, cv::Point(display->display_width / 4, display->display_height / 2), cv::FONT_HERSHEY_SIMPLEX, 5, cv::Scalar(0, 0, 255, 255), 4, 16);
+		cv::putText(display->getDisplayedBack(), text, cv::Point(display->getDisplayWidth() / 4, display->getDisplayHeight() / 2), cv::FONT_HERSHEY_SIMPLEX, 5, cv::Scalar(0, 0, 255, 255), 4, 16);
 		display->display(time * 1000);
 		display->resetDisplayedbackground();
 	}
@@ -115,13 +115,13 @@ int game1::update(Display *display)
 	return 0;
 }
 
-int game1::start(const settings *settings, int target)
+int game1::start(settings *settings, int target)
 {
 	state = 1;
 
-	up_time = settings->up_time;
-	down_time = settings->down_time;
-	nbCible = settings->nbCibles;
+	up_time = settings->getUpTime();
+	down_time = settings->getDownTime();
+	nbCible = settings->getNbCibles();
 	targetId = target;
 	up = true;
 	return 0;
@@ -132,7 +132,7 @@ int game1::stop(Display *display)
 	display->resetDisplayedbackground();
 	std::string text;
 	text = "Stop";
-	cv::putText(display->displayed_background, text, cv::Point(display->display_width / 2, display->display_height / 2), cv::FONT_HERSHEY_SIMPLEX, 5, cv::Scalar(0, 0, 255, 255), 4, 16);
+	cv::putText(display->getDisplayedBack(), text, cv::Point(display->getDisplayWidth() / 2, display->getDisplayHeight() / 2), cv::FONT_HERSHEY_SIMPLEX, 5, cv::Scalar(0, 0, 255, 255), 4, 16);
 	display->display(1000);
 	state = 0;
 	display->resetDisplayedbackground();
@@ -144,4 +144,24 @@ int game1::reset()
 	nbCible = 10;
 	nbHits = 0;
 	return 0;
+}
+
+void game1::setNbCible(int nb)
+{
+	this->nbCible = nb;
+}
+
+int game1::getNbCible()
+{
+	return this->nbCible;
+}
+
+void game1::setState(bool state_)
+{
+	this->state = state_;
+}
+
+bool game1::getState()
+{
+	return this->state;
 }

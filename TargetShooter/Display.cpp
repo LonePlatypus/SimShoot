@@ -197,11 +197,11 @@ int Display::loadHit()
 
 int Display::getTargetId(settings *setting)
 {
-    if (setting->Target_round)
+    if (setting->getTargetRound())
     {
         return 1;
     }
-    else if (setting->Target_ISPC)
+    else if (setting->getTargetISPC())
     {
         return 0;
     }else
@@ -213,14 +213,29 @@ int Display::getTargetId(settings *setting)
 //récupération de l'info de l'impact
 int Display::updateHit(Hit* hit)
 {
-    if (hit->detected)
+    if (hit->getDetected())
     {
-        hit->detected = false;
-        addHit(hit->xHit, hit->yHit);
+        hit->setDetected ( false);
+        addHit(hit->getHitX(), hit->getHitY());
         return 0;
     }
     else
     {
         return 1;
     }
+}
+
+int Display::getDisplayWidth()
+{
+    return this->display_width;
+}
+
+int Display::getDisplayHeight()
+{
+    return this->display_height;
+}
+
+cv::Mat Display::getDisplayedBack()
+{
+    return this->displayed_background;
 }

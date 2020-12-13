@@ -9,21 +9,24 @@
 
 class Display
 {
-public:
-  static void GetScreenResoluton(int& rfWidth,
-                                 int& rfHeight);
-public:
+
+private :
 
 	int display_width;
 	int display_height;
+	cv::Mat hit;
 	cv::Mat background;
 
 	cv::Mat displayed_background;
 	std::vector<cv::Mat> targets;
 
-	cv::Mat hit;
+public :
 
 	Display();
+
+	static void GetScreenResoluton(int& rfWidth,
+		int& rfHeight);
+
 	int resetDisplayedbackground();
 
 	int loadTargets();
@@ -41,5 +44,9 @@ public:
 
 	int updateHit(Hit *hit);
 
+	int getDisplayWidth();
+	int getDisplayHeight();
+
+	cv::Mat getDisplayedBack();
 };
 

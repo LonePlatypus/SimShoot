@@ -10,7 +10,7 @@
 #pragma once
 class Camera
 {
-public:
+private :
 	
 	std::string path_camera;
 	std::string path_image;
@@ -24,11 +24,9 @@ public:
 
 	cv::Vec4f a;
 	cv::Vec4f b;
-
-	int width;
-	int height;
-
 	
+public :
+
 	Camera(std::string pathToMarker);
 
 	int getTransformCamScreen(Display display);
@@ -38,8 +36,16 @@ public:
 
 	cv::Vec2f computeScreenToGame(cv::Vec2f point);
 
+	int getWidth();
+	int getHeight();
+
+	void setWidth(int width_);
+	void setHeight(int height_);
+
 private :
 
+	int width;
+	int height;
 
 };
 

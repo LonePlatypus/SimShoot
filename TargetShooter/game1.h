@@ -21,7 +21,7 @@ struct Random
 
 class game1
 {
-public :
+private :
 
 	int state;
 	bool up;
@@ -35,6 +35,7 @@ public :
 	int nbHits;
 	int targetId;
 
+public :
   Random rnd;
 
 	game1(settings *settings, int target);
@@ -42,9 +43,15 @@ public :
 	int countDownScreen(Display *display, int time);
 
 	int update(Display *display);
-	int start(const settings* settings, int target);
+	int start(settings* settings, int target);
 	int stop(Display *display);
 	int reset();
+
+	void setNbCible(int nb);
+	int getNbCible();
+
+	void setState(bool state_);
+	bool getState();
 
 };
 
