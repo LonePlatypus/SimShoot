@@ -1,5 +1,4 @@
 #include "game1.h"
-#include "Display.h"
 
 //random_device rd;
 //mt19937 gen(rd());
@@ -83,6 +82,8 @@ int game1::update(Display *display)
 
 			up = false;
 			t = clock();
+			//std::string Img_name = "img_"+ std::to_string(nbCible) + ".png";
+			//imwrite(Img_name,display->getDisplayedBack());
 			nbCible--;
 			display->resetDisplayedbackground();
 		}

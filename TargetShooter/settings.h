@@ -1,5 +1,5 @@
-#pragma once
 #include <opencv2/opencv.hpp>
+#include "Camera.h"
 
 #define SETTINGS_NAME "Settings"
 
@@ -20,7 +20,8 @@ private :
     bool start;
     bool exit;
 
-
+    bool useMouse;
+    bool useCamera;
 
     double up_time;
     double down_time;
@@ -30,7 +31,7 @@ public:
 
     settings();
 
-    int displaySettings();
+    int displaySettings(Camera *camera);
 
     void setWidth(int width);
     void setHeight(int height);
@@ -42,6 +43,7 @@ public:
     bool getTargetISPC();
     bool getTargetRound();
 
+    int getInput();
 
     void setStop(bool state);
     void setStart(bool state);

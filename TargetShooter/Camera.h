@@ -1,8 +1,10 @@
 #include <opencv2/core.hpp>
+#include "opencv2/imgproc.hpp"
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include <opencv2/core/utility.hpp>
 #include <vector>
-#include "aruco_nano.h"
 #include <string>
-#include "Display.h"
 #include <iostream>
 #include <cmath>
 
@@ -12,10 +14,8 @@ class Camera
 {
 private :
 	
-	std::string path_camera;
+	int deviceID;
 	std::string path_image;
-
-	cv::Mat markerImg;
 
 	cv::Vec2f topLeft;
 	cv::Vec2f topRight;
@@ -24,15 +24,19 @@ private :
 
 	cv::Vec4f a;
 	cv::Vec4f b;
+
+	std::vector<cv::Point2f> corners;
+
+	bool calibrated;
 	
 public :
 
-	Camera(std::string pathToMarker);
+	Camera(int id, int w, int h);
+	Camera();
 
-	int getTransformCamScreen(Display display);
-	int getTransformCamScreenSimple(Display display);
+	static void CallBackMouseCorner(int event, int x, int y, int flags, void* userdata);
 
-	int setCameraCalibration(std::string path);
+	int getTransformCamScreenSimple();
 
 	cv::Vec2f computeScreenToGame(cv::Vec2f point);
 
@@ -41,6 +45,8 @@ public :
 
 	void setWidth(int width_);
 	void setHeight(int height_);
+
+	bool getCalibrated();
 
 private :
 

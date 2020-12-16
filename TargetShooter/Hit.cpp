@@ -10,12 +10,14 @@ Hit::Hit()
 //Traitement des donnees souris
 void Hit::CallBackMouse(int event, int x, int y, int flags, void* userdata)
 {
-
     if (event == cv::EVENT_LBUTTONDOWN)
     {
         ((Hit*)userdata)->xHit = x;
         ((Hit*)userdata)->yHit = y;
         ((Hit*)userdata)->detected = true;
+
+        cv::Vec2i hit(x, y);
+        ((Hit*)userdata)->Hits.push_back(hit);
     }
 }
 
@@ -49,11 +51,18 @@ void Hit::setHitY(int y)
     this->yHit = y;
 }
 
+std::vector<cv::Vec2i> Hit::getHits()
+{
+    return Hits;
+}
+
 //TODO
-int Hit::inputCamera(std::string path)
+/*
+int inputCamera(Camera* camera)
 {
     return 0;
 }
+*/
 
 //Recuperation de donnees souris
 int Hit::inputMouse()

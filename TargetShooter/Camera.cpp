@@ -1,12 +1,7 @@
 #include "Camera.h"
 
-
-Camera::Camera(std::string pathToMarker)
+Camera::Camera()
 {
-	double ratio = 0.5;
-	cv::Mat img = cv::imread(pathToMarker, cv::IMREAD_COLOR);
-	resize(img, img, cv::Size(), ratio, ratio);
-	markerImg = img;
 
 	topLeft[0] = 0.0;
 	topLeft[1] = 0.0;
@@ -19,162 +14,113 @@ Camera::Camera(std::string pathToMarker)
 
 	botRight[0] = 0.0;
 	botRight[1] = 0.0;
+
+	deviceID = 0;
+	path_image = "./img/screen.jpg";
+
+	setWidth(800);
+	setHeight(600);
+
+	calibrated = false;
 }
 
-int Camera::getTransformCamScreen(Display display)
+Camera::Camera(int id, int w, int h)
 {
-	//On construit l'image avec les coins "aruco"
-	cv::Mat img;
-	img = cv::Mat::zeros(cv::Size(display.getDisplayWidth(), display.getDisplayHeight()), CV_8UC3);
-	img = cv::Scalar(255, 255, 255);
 
-	int overlay_height = markerImg.rows;
-	int overlay_width = markerImg.cols;
+	topLeft[0] = 0.0;
+	topLeft[1] = 0.0;
 
-	int Y = (overlay_height/2);
-	int X = (overlay_width/2);
+	topRight[0] = 0.0;
+	topRight[1] = 0.0;
 
-	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.getDisplayWidth() && Y + (int)(overlay_height / 2) <= display.getDisplayHeight())
-	{
-		cv::Rect center(X - overlay_width / 2, Y - overlay_height / 2, overlay_width, overlay_height);
-		markerImg.copyTo(img(center));
-	}
+	botLeft[0] = 0.0;
+	botLeft[1] = 0.0;
 
-	Y = display.getDisplayHeight() - (overlay_height / 2)-21;
-	X = (overlay_width / 2);
+	botRight[0] = 0.0;
+	botRight[1] = 0.0;
 
-	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.getDisplayWidth() && Y + (int)(overlay_height / 2) <= display.getDisplayHeight())
-	{
-		cv::Rect center(X - overlay_width / 2, Y - overlay_height / 2, overlay_width, overlay_height);
-		markerImg.copyTo(img(center));
-	}
+	deviceID = id;
+	path_image = "./img/screen.jpg";
 
-	Y = display.getDisplayHeight()-(overlay_height / 2)-21;
-	X = display.getDisplayWidth() - (overlay_width / 2)-1;
+	setWidth(w);
+	setHeight(h);
 
-	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.getDisplayWidth() && Y + (int)(overlay_height / 2) <= display.getDisplayHeight())
-	{
-		cv::Rect center(X - overlay_width / 2, Y - overlay_height / 2, overlay_width, overlay_height);
-		markerImg.copyTo(img(center));
-	}
-
-	Y = (overlay_height / 2);
-	X = display.getDisplayWidth() -(overlay_width / 2)-1;
-
-	if (X - (int)(overlay_width / 2) >= 0 && Y - (int)(overlay_height / 2) >= 0 && X + (int)(overlay_width / 2) <= display.getDisplayWidth() && Y + (int)(overlay_height / 2) <= display.getDisplayHeight())
-	{
-		cv::Rect center(X - overlay_width / 2, Y - overlay_height / 2, overlay_width, overlay_height);
-		markerImg.copyTo(img(center));
-	}
-
-
-	//on affiche à l'écran pour faire la calibration 
-	//TODO ... peut être rajouter un compte à rebours pour cacher toutes les autre fenêtres
-	cv::imshow("Calibration", img);
-	cv::waitKey(1000);
-
-	//NO WORKING
-	//aruconano::MarkerDetector ArDetector;
-	//ArDetector.detect(img);
-
-	//NO WORKING EITHER
-	//std::vector<aruconano::Marker> markers = aruconano::MarkerDetector::detect(img);
-
-	img = cv::Mat::zeros(cv::Size(display.getDisplayWidth(), display.getDisplayHeight()), CV_8UC3);
-	img = cv::Scalar(255, 255, 255);
-
-	//TEST detection et affichage des markers ...FAIL
-
-	auto markers = aruconano::MarkerDetector::detect(img);
-	for (const auto& m : markers)
-		m.draw(img);
-
-	cv::imshow("Calibration2", img);
-	cv::waitKey(1000);
-	return 0;
+	calibrated = false;
 }
 
-int Camera::getTransformCamScreenSimple(Display display)
+void Camera::CallBackMouseCorner(int event, int x, int y, int flags, void* userdata)
 {
+	if (event == cv::EVENT_LBUTTONDOWN)
+	{
+		cv::Point2f point;
+		
+		point.x = x;
+		point.y = y;
 
-	setWidth(display.getDisplayWidth());
-	setHeight(display.getDisplayHeight());
 
+		((Camera*)userdata)->corners.push_back(point);
+	}
+}
+
+int Camera::getTransformCamScreenSimple()
+{
 	//On construit l'image verte
 	cv::Mat img;
 	img = cv::Mat::zeros(cv::Size(width, height), CV_8UC3);
 	img = cv::Scalar(0, 255, 0);
+	cv::imshow("Calibration", img);
+	cv::waitKey(2000);
 
-	//cv::imshow("Calibration", img);
-	//cv::waitKey(10000);
+	//récupérer l'image
+	//cv::Mat src = cv::imread(cv::samples::findFile(path_image), cv::IMREAD_COLOR);
 
 
-	//TODO récupérer l'image
-	cv::Mat src = cv::imread(cv::samples::findFile("./img/screen.jpg"), cv::IMREAD_COLOR);
+	cv::Mat src;
+	//--- INITIALIZE VIDEOCAPTURE
+	cv::VideoCapture cap;
+	// open the default camera using default API
+	// cap.open(0);
+	// OR advance usage: select any API backend
+	int deviceID = 0;             // 0 = open default camera
+	int apiID = cv::CAP_ANY;      // 0 = autodetect default API
+	// open selected camera using selected API
+	cap.open(deviceID, apiID);
+	// check if we succeeded
+	if (!cap.isOpened()) {
+		std::cerr << "ERROR! Unable to open camera\n";
+		return -1;
+	}
 
+	//cap.set(cv::CAP_PROP_FRAME_WIDTH, 1920);
+	//cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1080);
+
+		// wait for a new frame from camera and store it into 'frame'
+		cap.read(src);
+		// check if we succeeded
+		if (src.empty()) {
+			std::cerr << "ERROR! blank frame grabbed\n";
+			return -1;
+		}
+
+	cv::destroyWindow("Calibration");
 	bool settingsOk = false;
-	cv::namedWindow("Segmentation settings", cv::WINDOW_NORMAL);
-	//Create trackbar
-	int iSliderValue1 = 0;
-	cv::createTrackbar("Rmin", "Segmentation settings", &iSliderValue1, 255);
-	//Create trackbar
-	int iSliderValue2 = 193;
-	cv::createTrackbar("Gmin", "Segmentation settings", &iSliderValue2, 255);
-	//Create trackbar
-	int iSliderValue3 = 0;
-	cv::createTrackbar("Bmin", "Segmentation settings", &iSliderValue3, 255);
-	//Create trackbar
-	int iSliderValue4 = 145;
-	cv::createTrackbar("Rmax", "Segmentation settings", &iSliderValue4, 255);
-	//Create trackbar
-	int iSliderValue5 = 255;
-	cv::createTrackbar("Gmax", "Segmentation settings", &iSliderValue5, 255);
-	//Create trackbar
-	int iSliderValue6 = 150;
-	cv::createTrackbar("Bmax", "Segmentation settings", &iSliderValue6, 255);
-	//Create trackbar
-	int iSliderValue7 = 0;
-	cv::createTrackbar("Exit", "Segmentation settings", &iSliderValue7, 1);
-
-	std::vector<cv::Point2f> corners;
 
 	while (!settingsOk)
 	{
-		if (iSliderValue7 == 1 && corners.size() == 4)
+
+		if (corners.size() == 4)
 		{
 			settingsOk = true;
 		}
-
-		cv::Mat img_screen = src.clone();
-		cv::imshow("Screen pic", img_screen);
+		cv::imshow("Screen pic", src);
 		cv::waitKey(50);
-
-		cv::inRange(src, cv::Scalar(iSliderValue1, iSliderValue2, iSliderValue3), cv::Scalar(iSliderValue4, iSliderValue5, iSliderValue6), img_screen);
-		cv::Mat back = cv::Mat::zeros(cv::Size(400, 2), CV_8UC3);
-		imshow("Segmentation settings", back);
-		cv::imshow("Screen segmented", img_screen);
-		cv::waitKey(50);
-
-		cv::Canny(img_screen, img_screen, 0.5, 50, 3);
-		cv::imshow("Screen canny", img_screen);
-		cv::waitKey(50);
-
-		cv::goodFeaturesToTrack(img_screen, corners, 4, 0.1, 10);
-
-		cv::Mat img_corners = src.clone();
-		for (int i = 0; i < corners.size(); i++)
+		cv::setMouseCallback("Screen pic", CallBackMouseCorner, this);
+		if (corners.size() > 0)
 		{
-			cv::Point2i pt = corners[i];
-			cv::circle(img_corners, pt, 5, cv::Scalar(255, 0, 0));
+			cv::circle(src, corners[corners.size()-1], 7, cv::Scalar(255, 255, 255), 3);
 		}
-		cv::imshow("Screen corners", img_corners);
-		cv::waitKey(50);
 	}
 	cv::destroyWindow("Screen pic");
-	cv::destroyWindow("Segmentation settings");
-	cv::destroyWindow("Screen segmented");
-	cv::destroyWindow("Screen canny");
-	cv::destroyWindow("Screen corners");
 
 
 	if (corners.size() < 4)
@@ -282,6 +228,8 @@ int Camera::getTransformCamScreenSimple(Display display)
 	cv::waitKey(2000);
 	cv::destroyWindow("Corner");
 
+	calibrated = true;
+
 
 /*https://www.particleincell.com/2012/quad-interpolation */
 	//dans l'image caméra -> coordonnées P(x,y)
@@ -327,12 +275,6 @@ int Camera::getTransformCamScreenSimple(Display display)
 
 	return 0;
 }
-
-int Camera::setCameraCalibration(std::string path)
-{
-	return 0;
-}
-
 
 cv::Vec2f Camera::computeScreenToGame(cv::Vec2f point)
 {
@@ -381,4 +323,9 @@ void Camera::setWidth(int width_)
 void Camera::setHeight(int height_)
 {
 	this->height = height_;
+}
+
+bool Camera::getCalibrated()
+{
+	return calibrated;
 }

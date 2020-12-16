@@ -21,9 +21,12 @@ settings::settings()
     down_time = 1.0;
     nbCibles = 10;
 
+    useMouse = true;
+    useCamera = false;
+
 }
 
-int settings::displaySettings()
+int settings::displaySettings(Camera *camera)
 {
     cvui::window(settings_frame, 0, 0, settings_width, settings_height, "Settings");
 
@@ -46,6 +49,13 @@ int settings::displaySettings()
     cvui::text(settings_frame, 170, 255, "Nombre de cible par session");
     cvui::counter(settings_frame, 30, 250, &nbCibles, 1,"%d");
 
+    cvui::checkbox(settings_frame, 10, 300, "Mouse Input", &useMouse);
+    cvui::checkbox(settings_frame, 210, 300, "Camera Input", &useCamera);
+    if (!camera->getCalibrated())
+    {
+        useCamera = false;
+    }
+
     if (cvui::button(settings_frame, 70, 460, 100, 50, "Start")) {
         // button was clicked
         start = true;
@@ -56,10 +66,16 @@ int settings::displaySettings()
         start = false;
         stop = true;
     }
-    if (cvui::button(settings_frame, 70, 530, 260, 50, "EXIT")) {
+    if (cvui::button(settings_frame, 70, 530, 100, 50, "EXIT")) {
         // button was clicked
         exit = true;
     }
+
+    if (cvui::button(settings_frame, 230, 530, 100, 50, "Calib' camera")) {
+        // button was clicked
+        camera->getTransformCamScreenSimple();
+    }
+
     cvui::imshow(SETTINGS_NAME, settings_frame);
 
     return 0;
@@ -103,6 +119,22 @@ bool settings::getTargetISPC()
 bool settings::getTargetRound()
 {
     return Target_round;
+}
+
+int settings::getInput()
+{
+    if (useCamera)
+    {
+        return 1;
+    }
+    else if (useMouse)
+    {
+        return 2;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 void settings::setStop(bool state)

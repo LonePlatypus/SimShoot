@@ -1,17 +1,9 @@
 #include <iostream>
-#include <vector>
-#include <random>
-#include "opencv2/imgproc.hpp"
-#include "opencv2/imgcodecs.hpp"
-#include "opencv2/highgui.hpp"
-#include <opencv2/core/utility.hpp>
 #include <time.h>
 
-#include "settings.h"
 #include "Display.h"
 #include "Hit.h"
 #include "game1.h"
-#include "Camera.h"
 
 
 using namespace std;
@@ -23,9 +15,8 @@ int main(int argc, char** argv)
      //On met tout en place pour l'affichage
     Display display;
  
-    Camera camera("./img/marker.png");
-    //camera.getTransformCamScreen(display);
-    camera.getTransformCamScreenSimple(display);
+    Camera camera(0, display.getDisplayWidth() , display.getDisplayHeight());
+    //camera.getTransformCamScreenSimple(display);
     
     //Les settings
     settings settings;
@@ -44,9 +35,22 @@ int main(int argc, char** argv)
     //sortie du programme si click sur exit
     while (settings.getExit() == false)
     {
-        hit.inputMouse();
+        switch (settings.getInput())
+        {
+        case 1 :
+            //hit.inputCamera(&camera);
+            break;
+        case 2 :
+            hit.inputMouse();
+            break;
+        default:
+            hit.inputMouse();
+            break;
+        }
+        
+
         display.updateHit(&hit);
-        settings.displaySettings();
+        settings.displaySettings(&camera);
 
 
         clock_t time = clock() - t;
@@ -58,7 +62,6 @@ int main(int argc, char** argv)
         if (((double)frame_time) / CLOCKS_PER_SEC > 0.03)
         {
             t_frame = clock();         
-
 
             //si on veut arrêter le jeu
             if (settings.getStop() || game.getNbCible() < 0)

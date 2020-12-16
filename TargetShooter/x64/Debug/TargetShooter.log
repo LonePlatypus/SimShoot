@@ -1,15 +1,15 @@
-﻿  TargetShooter.cpp
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(579,11): warning C4244: 'argument' : conversion de 'double' en '_Tp', perte possible de données
+﻿  Camera.cpp
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(57,13): warning C4244: '=' : conversion de 'int' en '_Tp', perte possible de données
           with
           [
               _Tp=float
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(579,7): warning C4244: 'argument' : conversion de 'double' en '_Tp', perte possible de données
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(58,13): warning C4244: '=' : conversion de 'int' en '_Tp', perte possible de données
           with
           [
               _Tp=float
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(1032,4): warning C4244: 'argument' : conversion de '_Tp' en '_Tp', perte possible de données
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(161,19): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
           with
           [
               _Tp=int
@@ -18,7 +18,7 @@ C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(1032,4)
           [
               _Tp=float
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(1025,8): warning C4244: 'argument' : conversion de '_Tp' en '_Tp', perte possible de données
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(162,19): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
           with
           [
               _Tp=int
@@ -27,51 +27,151 @@ C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(1025,8)
           [
               _Tp=float
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(1496,14): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(1794,5): warning C4244: '+=' : conversion de 'double' en 'int', perte possible de données
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(2369,3): warning C4267: 'return' : conversion de 'size_t' en 'int', perte possible de données
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(2528,15): warning C4244: 'argument' : conversion de 'float' en '_Tp', perte possible de données
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(166,20): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
           with
           [
               _Tp=int
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(2528,6): warning C4244: 'argument' : conversion de 'float' en '_Tp', perte possible de données
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(167,20): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
           with
           [
               _Tp=int
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(2544,21): warning C4244: 'argument' : conversion de 'float' en '_Tp', perte possible de données
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(174,19): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
           with
           [
               _Tp=int
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(2544,4): warning C4244: 'argument' : conversion de 'float' en '_Tp', perte possible de données
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(175,19): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
           with
           [
               _Tp=int
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(2580,13): warning C4244: 'argument' : conversion de 'float' en '_Tp', perte possible de données
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(179,20): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
           with
           [
               _Tp=int
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(2580,10): warning C4244: 'argument' : conversion de 'float' en '_Tp', perte possible de données
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(180,20): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
           with
           [
               _Tp=int
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(2602,24): warning C4244: 'argument' : conversion de 'float' en '_Tp', perte possible de données
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(204,19): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
           with
           [
               _Tp=int
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(2602,13): warning C4244: 'argument' : conversion de 'float' en '_Tp', perte possible de données
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(205,19): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
           with
           [
               _Tp=int
           ]
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(2749,5): warning C4244: 'return' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\aruco_nano.h(3043,11): warning C4244: 'initialisation' : conversion de 'float' en 'int', perte possible de données
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(209,20): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=int
+          ]
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(210,20): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=int
+          ]
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(217,19): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=int
+          ]
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(218,19): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=int
+          ]
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(222,20): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=int
+          ]
+          and
+          [
+              _Tp=float
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp(223,20): warning C4244: '=' : conversion de '_Tp' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=int
+          ]
+          and
+          [
+              _Tp=float
+          ]
+  Display.cpp
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Display.cpp(106,43): warning C4244: '=' : conversion de 'double' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=uchar
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Display.cpp(107,43): warning C4244: '=' : conversion de 'double' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=uchar
+          ]
+C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Display.cpp(108,43): warning C4244: '=' : conversion de 'double' en '_Tp', perte possible de données
+          with
+          [
+              _Tp=uchar
+          ]
+  TargetShooter.cpp
   game1.cpp
+  settings.cpp
+  cvui.h: compiling implementation because of CVUI_IMPLEMENTATION. See: https://dovyski.github.io/cvui/usage/
   Génération de code en cours...
   TargetShooter.vcxproj -> C:\Users\Sigma\source\repos\SimShoot\SimShoot\x64\Debug\TargetShooter.exe
