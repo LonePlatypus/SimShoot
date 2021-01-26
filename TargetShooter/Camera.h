@@ -34,6 +34,8 @@ public :
 	Camera(int id, int w, int h);
 	Camera();
 
+    void DisplayCamera();
+
 	static void CallBackMouseCorner(int event, int x, int y, int flags, void* userdata);
 
 	int getTransformCamScreenSimple();

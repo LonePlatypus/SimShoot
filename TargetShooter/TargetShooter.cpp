@@ -1,7 +1,6 @@
 #include <iostream>
 #include <time.h>
 
-#include "Display.h"
 #include "Hit.h"
 #include "game1.h"
 
@@ -10,18 +9,22 @@ using namespace std;
 using namespace cv;
 
 
-int main(int argc, char** argv)
+
+int main()
 {
-     //On met tout en place pour l'affichage
+
+    //On met tout en place pour l'affichage
     Display display;
- 
+
     Camera camera(0, display.getDisplayWidth() , display.getDisplayHeight());
     //camera.getTransformCamScreenSimple(display);
-    
+    //camera.DisplayCamera();
+
     //Les settings
     settings settings;
-    //Les inputs (souris / caméra)
-    Hit hit;  
+    //Les inputs (souris / camï¿½ra)
+    Hit hit;
+    hit.startVideoCap(0);
     //On lance le jeu 1
     game1 game(&settings, display.getTargetId(&settings));
     bool up = false;
@@ -38,7 +41,11 @@ int main(int argc, char** argv)
         switch (settings.getInput())
         {
         case 1 :
-            //hit.inputCamera(&camera);
+            hit.inputCamera();
+            for(int i = 0 ; i < hit.getHits().size() ; ++i)
+            {
+
+            }
             break;
         case 2 :
             hit.inputMouse();
@@ -47,7 +54,7 @@ int main(int argc, char** argv)
             hit.inputMouse();
             break;
         }
-        
+
 
         display.updateHit(&hit);
         settings.displaySettings(&camera);
@@ -57,13 +64,13 @@ int main(int argc, char** argv)
         clock_t frame_time = clock() - t_frame;
         double elapsed = ((double)time) / CLOCKS_PER_SEC;
 
-        
-        //rafraichissement à 30fps
+
+        //rafraichissement ï¿½ 30fps
         if (((double)frame_time) / CLOCKS_PER_SEC > 0.03)
         {
-            t_frame = clock();         
+            t_frame = clock();
 
-            //si on veut arrêter le jeu
+            //si on veut arrï¿½ter le jeu
             if (settings.getStop() || game.getNbCible() < 0)
             {
                 settings.setStop(false);
@@ -72,7 +79,7 @@ int main(int argc, char** argv)
                 game.reset();
 
             }
-            //démarage du jeu avec les settings courants
+            //dï¿½marage du jeu avec les settings courants
             else if (settings.getStart())
             {
                 settings.setStart(false);
@@ -80,12 +87,12 @@ int main(int argc, char** argv)
                 game.countDownScreen(&display, 3);
 
             }
-            //si le jeu est lancé, on traite les tirs + l'affichage
+            //si le jeu est lancï¿½, on traite les tirs + l'affichage
             else if (game.getState() == 1)
             {
                 game.update(&display);
             }
-            //écran blanc ...
+            //ï¿½cran blanc ...
             else
             {
                 display.display(1);
@@ -94,8 +101,8 @@ int main(int argc, char** argv)
         }
 
     }
-    
-    
+
+
     return 0;
 }
 

@@ -51,9 +51,15 @@ int settings::displaySettings(Camera *camera)
 
     cvui::checkbox(settings_frame, 10, 300, "Mouse Input", &useMouse);
     cvui::checkbox(settings_frame, 210, 300, "Camera Input", &useCamera);
+
     if (!camera->getCalibrated())
     {
         useCamera = false;
+        cvui::rect(settings_frame, 225, 525, 110, 60, 0xff0000, 0xff0000);
+    }
+    else
+    {
+        cvui::rect(settings_frame, 225, 525, 110, 60, 0x00ff00, 0x00ff00);
     }
 
     if (cvui::button(settings_frame, 70, 460, 100, 50, "Start")) {

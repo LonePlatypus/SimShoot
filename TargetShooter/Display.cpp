@@ -79,8 +79,6 @@ int Display::addTarget(int X, int Y, int targetId)
 //On rajoute l'image d'impact (plus pour du débug qu'autre chose)
 int Display::addHit(int X, int Y)
 {
-
-    std::cout << "in add Hit" << std::endl;
     cv::Mat overlay;
     overlay = hit;
 
@@ -137,10 +135,12 @@ int Display::resetDisplayedbackground()
 //On charge les deux images de cibles
 int Display::loadTargets()
 {
+    //Jozy first for easter egg
+    loadJPGTarget("./img/target_jozy.jpg", 1.);
+
     loadJPGTarget("./img/target_IPSC.jpg", (1.0/5.0));
 
-    loadJPGTarget("./img/target_jozy.jpg", 1.);
-    //loadPNGTarget("./img/target_round.png", (1.0 /30.0));
+    loadPNGTarget("./img/target_round.png", (1.0 /30.0));
 
     return 0;
 }
@@ -199,11 +199,11 @@ int Display::getTargetId(settings *setting)
 {
     if (setting->getTargetRound())
     {
-        return 1;
+        return 2;
     }
     else if (setting->getTargetISPC())
     {
-        return 0;
+        return 1;
     }else
     {
         return 0;
