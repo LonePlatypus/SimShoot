@@ -12,20 +12,20 @@ using namespace cv;
 
 int main()
 {
-/*
+    std::cout << "OpenCV Version : " <<
+                 CV_MAJOR_VERSION << "." << CV_MINOR_VERSION
+              << "." << CV_SUBMINOR_VERSION << std::endl;
 
-    cv::VideoCapture cap;
-    int apiID = cv::CAP_DSHOW ;
-    cap.open(0, apiID);
-    // check if we succeeded
-    if (!cap.isOpened())
+    TestCamPerso camPerso;
+    cv::Mat frame;
+
+
+    if (!camPerso.cap.isOpened())
     {
         std::cerr << "ERROR! Unable to open camera\n";
     }
     else
     {
-
-        cv::Mat frame;
         while(1)
         {
             clock_t timeA;
@@ -33,7 +33,9 @@ int main()
             double elapsedA=0.0;
 
             timeA= clock();
-            cap.read(frame);
+            camPerso.getFrame(frame);
+//            cap.read(frame);
+            //std::cout << camPerso.cap.getBackendName() << std::endl;
 
             timeB = clock();
             elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
@@ -45,8 +47,7 @@ int main()
     }
 
 
-
-*/
+    //exit(127);
 
 
     //On met tout en place pour l'affichage

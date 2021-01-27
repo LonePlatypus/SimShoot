@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include <cassert>
 
 Camera::Camera()
 {
@@ -172,7 +173,7 @@ int Camera::getTransformCamScreenSimple()
         return -1;
     }
     //On cherche la position des coins
-    //en premier le top left -> on récupère les deux plus hauts et celui le plus à gauche est sélectionné
+    //en premier le top left -> on rï¿½cupï¿½re les deux plus hauts et celui le plus ï¿½ gauche est sï¿½lectionnï¿½
     cv::Point2i pt1 = corners[0];
     int pose1 = 0;
     cv::Point2i pt2 = corners[1];
@@ -276,8 +277,8 @@ int Camera::getTransformCamScreenSimple()
 
 
     /*https://www.particleincell.com/2012/quad-interpolation */
-    //dans l'image caméra -> coordonnées P(x,y)
-    //dans le carré unité -> coordonnées P'(l,m)
+    //dans l'image camï¿½ra -> coordonnï¿½es P(x,y)
+    //dans le carrï¿½ unitï¿½ -> coordonnï¿½es P'(l,m)
 
     // x = a(0) + a(1)*l + a(2)*m + a(3)*l*m
     // y = b(0) + b(1)*l + b(2)*m + b(3)*l*m
@@ -324,8 +325,8 @@ cv::Vec2f Camera::computeScreenToGame(cv::Vec2f point)
 {
 
     /*https://www.particleincell.com/2012/quad-interpolation */
-    //dans l'image caméra -> coordonnées P(x,y)
-    //dans le carré unité -> coordonnées P'(u,v)
+    //dans l'image camï¿½ra -> coordonnï¿½es P(x,y)
+    //dans le carrï¿½ unitï¿½ -> coordonnï¿½es P'(u,v)
 
     // x = a(0) + a(1)*u + a(2)*v + a(3)*u*v
     // y = b(0) + b(1)*u + b(2)*v + b(3)*u*v
@@ -372,4 +373,15 @@ void Camera::setHeight(int height_)
 bool Camera::getCalibrated()
 {
     return calibrated;
+}
+
+TestCamPerso::TestCamPerso()
+{
+    cap.open(0, cv::CAP_ANY);
+    assert(cap.isOpened());
+}
+
+bool TestCamPerso::getFrame(cv::Mat &rfFrame)
+{
+    return cap.read(rfFrame);
 }

@@ -74,8 +74,8 @@ int Hit::inputCamera()
     //cv::Mat laser = cv::imread("img/img30.jpg");
 
     timeA= clock();
-    int apiID = cv::CAP_DSHOW ;
-    cap.open(0, apiID);
+//    int apiID = cv::CAP_DSHOW ;
+//    cap.open(0, apiID);
     timeB = clock();
     elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
     std::cout <<"elapsed set image size : "<<elapsedA<<std::endl;

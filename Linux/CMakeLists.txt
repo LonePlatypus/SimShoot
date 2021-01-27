@@ -15,6 +15,7 @@ ${srcDir}/TargetShooter.cpp
 ${srcDir}/settings.cpp
 ${srcDir}/Display.cpp
 ${srcDir}/game1.cpp
+${srcDir}/Camera.cpp
 ${srcDir}/Linux/screen.cpp
 )
 

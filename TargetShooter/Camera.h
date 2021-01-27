@@ -1,3 +1,5 @@
+#pragma once
+
 #include <opencv2/core.hpp>
 #include "opencv2/imgproc.hpp"
 #include "opencv2/imgcodecs.hpp"
@@ -8,8 +10,18 @@
 #include <iostream>
 #include <cmath>
 
+class TestCamPerso
+{
+public:
+    TestCamPerso();
 
-#pragma once
+    bool getFrame(cv::Mat& rfFrame);
+
+
+    cv::VideoCapture    cap;
+};
+
+
 class Camera
 {
 private :
