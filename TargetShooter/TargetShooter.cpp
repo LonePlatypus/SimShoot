@@ -16,6 +16,7 @@ int main()
                  CV_MAJOR_VERSION << "." << CV_MINOR_VERSION
               << "." << CV_SUBMINOR_VERSION << std::endl;
 
+    /*
     TestCamPerso camPerso;
     cv::Mat frame;
 
@@ -46,7 +47,7 @@ int main()
         }
     }
 
-
+*/
     //exit(127);
 
 
@@ -82,6 +83,7 @@ int main()
         switch (settings.getInput())
         {
         case 1 :
+        {
             timeA= clock();
             hit.inputCamera();
             timeB = clock();
@@ -92,6 +94,7 @@ int main()
             {
 
             }
+        }
             break;
         case 2 :
             hit.inputMouse();
@@ -143,7 +146,7 @@ int main()
 
     }
 
-
+    CaptureVideo::delInstance();
     return 0;
 }
 

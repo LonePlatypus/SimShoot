@@ -21,9 +21,27 @@ public:
     cv::VideoCapture    cap;
 };
 
+class CaptureVideo
+{
+public:
+    static CaptureVideo& getInstance();
+    static void delInstance();
+
+    const cv::VideoCapture& cap() const;
+    cv::VideoCapture& cap();
+
+private:
+    CaptureVideo();
+    virtual ~CaptureVideo();
+    static CaptureVideo* instance_;
+
+    cv::VideoCapture* cap_;
+};
+
 
 class Camera
 {
+
 private :
 	
 	int deviceID;

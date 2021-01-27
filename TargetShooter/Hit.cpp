@@ -1,5 +1,6 @@
 #include "Hit.h"
 #include <time.h>
+#include "Camera.h"
 
 Hit::Hit()
 {
@@ -81,14 +82,14 @@ int Hit::inputCamera()
     std::cout <<"elapsed set image size : "<<elapsedA<<std::endl;
 
 
-    if (cap.isOpened())
+    if (CaptureVideo::getInstance().cap().isOpened())
     {
 
         timeA= clock();
 
         //cap >> laser;
 
-        bool read = cap.read(laser);
+        bool read = CaptureVideo::getInstance().cap().read(laser);
         bool empty = laser.empty();
         if(read && !empty)
         //if(cap.grab() && cap.retrieve(laser) && !laser.empty())
@@ -166,10 +167,10 @@ int Hit::inputCamera()
 //Recuperation de donnees vidéo
 void Hit::startVideoCap(int deviceID)
 {
-    int apiID = cv::CAP_DSHOW ;
-    cap.open(deviceID, apiID);
+//    int apiID = cv::CAP_ANY ;
+//    cap.open(deviceID, apiID);
     // check if we succeeded
-    if (!cap.isOpened())
+    if (!CaptureVideo::getInstance().cap().isOpened())
     {
         std::cerr << "ERROR! Unable to open camera\n";
     }
