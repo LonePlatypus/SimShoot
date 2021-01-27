@@ -26,7 +26,7 @@ settings::settings()
 
 }
 
-int settings::displaySettings(Camera *camera)
+int settings::displaySettings(Camera *camera , bool camOpen)
 {
     cvui::window(settings_frame, 0, 0, settings_width, settings_height, "Settings");
 
@@ -50,6 +50,16 @@ int settings::displaySettings(Camera *camera)
     cvui::counter(settings_frame, 30, 250, &nbCibles, 1,"%d");
 
     cvui::checkbox(settings_frame, 10, 300, "Mouse Input", &useMouse);
+
+
+    if (!camOpen)
+    {
+        cvui::rect(settings_frame, 209, 299, 17, 17, 0xff0000, 0xff0000);
+    }
+    else
+    {
+        cvui::rect(settings_frame, 209, 299, 17, 17, 0x00ff00, 0x00ff00);
+    }
     cvui::checkbox(settings_frame, 210, 300, "Camera Input", &useCamera);
 
     if (!camera->getCalibrated())
@@ -82,7 +92,7 @@ int settings::displaySettings(Camera *camera)
         camera->getTransformCamScreenSimple();
     }
 
-    cvui::imshow(SETTINGS_NAME, settings_frame);
+    cvui::imshow(SETTINGS_NAME, this->settings_frame);
 
     return 0;
 }

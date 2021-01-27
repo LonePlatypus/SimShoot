@@ -213,7 +213,8 @@ int Display::getTargetId(settings *setting)
 //récupération de l'info de l'impact
 int Display::updateHit(Hit* hit)
 {
-    if (hit->getDetected())
+
+    if (hit && hit->getDetected())
     {
         hit->setDetected ( false);
         addHit(hit->getHitX(), hit->getHitY());

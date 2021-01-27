@@ -12,6 +12,42 @@ using namespace cv;
 
 int main()
 {
+/*
+
+    cv::VideoCapture cap;
+    int apiID = cv::CAP_DSHOW ;
+    cap.open(0, apiID);
+    // check if we succeeded
+    if (!cap.isOpened())
+    {
+        std::cerr << "ERROR! Unable to open camera\n";
+    }
+    else
+    {
+
+        cv::Mat frame;
+        while(1)
+        {
+            clock_t timeA;
+            clock_t timeB;
+            double elapsedA=0.0;
+
+            timeA= clock();
+            cap.read(frame);
+
+            timeB = clock();
+            elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
+            std::cout <<"elapsed get image : "<<elapsedA<<std::endl;
+            cv::imshow("debug",frame);
+            cv::waitKey(5);
+
+        }
+    }
+
+
+
+*/
+
 
     //On met tout en place pour l'affichage
     Display display;
@@ -35,13 +71,22 @@ int main()
     t_frame = t;
 
 
+    clock_t timeA;
+    clock_t timeB;
+    double elapsedA=0.0;
+
     //sortie du programme si click sur exit
     while (settings.getExit() == false)
     {
         switch (settings.getInput())
         {
         case 1 :
+            timeA= clock();
             hit.inputCamera();
+            timeB = clock();
+            elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
+            std::cout <<"elapsed : "<<elapsedA<<std::endl;
+
             for(int i = 0 ; i < hit.getHits().size() ; ++i)
             {
 
@@ -57,13 +102,9 @@ int main()
 
 
         display.updateHit(&hit);
-        settings.displaySettings(&camera);
+        settings.displaySettings(&camera , hit.getCamOpen());
 
-
-        clock_t time = clock() - t;
         clock_t frame_time = clock() - t_frame;
-        double elapsed = ((double)time) / CLOCKS_PER_SEC;
-
 
         //rafraichissement � 30fps
         if (((double)frame_time) / CLOCKS_PER_SEC > 0.03)
@@ -92,7 +133,6 @@ int main()
             {
                 game.update(&display);
             }
-            //�cran blanc ...
             else
             {
                 display.display(1);

@@ -55,7 +55,7 @@ void Camera::DisplayCamera()
     cv::VideoCapture cap;
     //advance usage: select any API backend
     int deviceID = 0;             // 0 = open default camera
-    int apiID = cv::CAP_ANY;      // 0 = autodetect default API
+    int apiID = cv::CAP_DSHOW;
     // open selected camera using selected API
     cap.open(deviceID, apiID);
     // check if we succeeded
@@ -63,8 +63,8 @@ void Camera::DisplayCamera()
         std::cerr << "ERROR! Unable to open camera\n";
     }
 
-    cap.set(cv::CAP_PROP_FRAME_WIDTH, 1920);
-    cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1080);
+    //cap.set(cv::CAP_PROP_FRAME_WIDTH, 1920);
+    //cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1080);
     int i = 0;
     while(cap.isOpened())
     {
@@ -134,11 +134,12 @@ int Camera::getTransformCamScreenSimple()
         return -1;
     }
 
-    cap.set(cv::CAP_PROP_FRAME_WIDTH, 1920);
-    cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1080);
+    //cap.set(cv::CAP_PROP_FRAME_WIDTH, 1920);
+    //cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1080);
 
     // wait for a new frame from camera and store it into 'frame'
     cap.read(src);
+    cap.release();
     // check if we succeeded
     if (src.empty()) {
         std::cerr << "ERROR! blank frame grabbed\n";

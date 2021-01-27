@@ -23,6 +23,14 @@ private :
     cv::VideoCapture cap;
 
 	std::string webcam_path;
+    bool camOpen;
+
+    cv::Mat laser;
+    cv::Mat red;
+    cv::Mat tresh;
+    cv::Mat erod;
+    cv::Mat dil;
+    cv::Mat element;
 
 public :
 
@@ -32,6 +40,8 @@ public :
 	int inputMouse();
 
 	static void CallBackMouse(int event, int x, int y, int flags, void* userdata);
+
+    bool getCamOpen();
 
 	bool getDetected();
 	void setDetected(bool state);

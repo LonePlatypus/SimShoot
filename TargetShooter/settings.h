@@ -31,7 +31,7 @@ public:
 
     settings();
 
-    int displaySettings(Camera *camera);
+    int displaySettings(Camera *camera, bool camOpen);
 
     void setWidth(int width);
     void setHeight(int height);
