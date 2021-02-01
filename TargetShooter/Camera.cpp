@@ -52,13 +52,6 @@ Camera::Camera(int id, int w, int h)
 void Camera::DisplayCamera()
 {
     cv::Mat src;
-    //--- INITIALIZE VIDEOCAPTURE
-//    cv::VideoCapture cap;
-    //advance usage: select any API backend
-    int deviceID = 0;             // 0 = open default camera
-    int apiID = cv::CAP_DSHOW;
-    // open selected camera using selected API
-//    cap.open(deviceID, apiID);
     // check if we succeeded
     if (!CaptureVideo::getInstance().cap().isOpened()) {
         std::cerr << "ERROR! Unable to open camera\n";
@@ -88,7 +81,7 @@ void Camera::DisplayCamera()
         char c=(char)cv::waitKey(25);
         if(c==27)
         {
-          break;
+            break;
         }
     }
     cv::destroyWindow("Camera");
@@ -109,7 +102,6 @@ void Camera::CallBackMouseCorner(int event, int x, int y, int flags, void* userd
     }
 }
 
-
 int Camera::getTransformCamScreenSimple()
 {
     corners.clear();
@@ -118,19 +110,9 @@ int Camera::getTransformCamScreenSimple()
     img = cv::Mat::zeros(cv::Size(width, height), CV_8UC3);
     img = cv::Scalar(0, 255, 0);
     cv::imshow("Calibration", img);
-    cv::waitKey(2000);
+    cv::waitKey(1000);
 
     cv::Mat src;
-    //--- INITIALIZE VIDEOCAPTURE
-//    cv::VideoCapture cap;
-    // open the default camera using default API
-    // cap.open(0);
-    // OR advance usage: select any API backend
-//    int deviceID = 0;             // 0 = open default camera
-//    int apiID = cv::CAP_ANY;      // 0 = autodetect default API
-//    // open selected camera using selected API
-//    cap.open(deviceID, apiID);
-    // check if we succeeded
     if (!CaptureVideo::getInstance().cap().isOpened()) {
         std::cerr << "ERROR! Unable to open camera\n";
         return -1;
@@ -141,12 +123,14 @@ int Camera::getTransformCamScreenSimple()
 
     // wait for a new frame from camera and store it into 'frame'
     CaptureVideo::getInstance().cap().read(src);
-//    cap.release();
     // check if we succeeded
     if (src.empty()) {
         std::cerr << "ERROR! blank frame grabbed\n";
         return -1;
     }
+
+    this->cam_height = src.rows;
+    this->cam_width = src.cols;
 
     cv::destroyWindow("Calibration");
     bool settingsOk = false;
@@ -205,12 +189,12 @@ int Camera::getTransformCamScreenSimple()
     if (pt1.x < pt2.x)
     {
         topLeft[0] = pt1.x;
-        topLeft[1] = pt1.y;
+        topLeft[1] = this->cam_height - pt1.y;
         cv::circle(src, pt1, 7, cv::Scalar(255, 0, 0),3);
         cv::imshow("Corner", src);
         cv::waitKey(50);
         topRight[0] = pt2.x;
-        topRight[1] = pt2.y;
+        topRight[1] = this->cam_height - pt2.y;
         cv::circle(src, pt2, 7, cv::Scalar(0, 0, 255),3);
         cv::imshow("Corner", src);
         cv::waitKey(50);
@@ -218,12 +202,12 @@ int Camera::getTransformCamScreenSimple()
     else
     {
         topLeft[0] = pt2.x;
-        topLeft[1] = pt2.y;
+        topLeft[1] = this->cam_height - pt2.y;
         cv::circle(src, pt2, 7, cv::Scalar(255, 0, 0),3);
         cv::imshow("Corner", src);
         cv::waitKey(50);
         topRight[0] = pt1.x;
-        topRight[1] = pt1.y;
+        topRight[1] = this->cam_height - pt1.y;
         cv::circle(src, pt1, 7, cv::Scalar(0, 0, 255),3);
         cv::imshow("Corner", src);
         cv::waitKey(50);
@@ -248,12 +232,12 @@ int Camera::getTransformCamScreenSimple()
     if (pt1.x < pt2.x)
     {
         botLeft[0] = pt1.x;
-        botLeft[1] = pt1.y;
+        botLeft[1] = this->cam_height - pt1.y;
         cv::circle(src, pt1, 7, cv::Scalar(255, 0, 255),3);
         cv::imshow("Corner", src);
         cv::waitKey(50);
         botRight[0] = pt2.x;
-        botRight[1] = pt2.y;
+        botRight[1] = this->cam_height - pt2.y;
         cv::circle(src, pt2, 7, cv::Scalar(0, 255, 0),3);
         cv::imshow("Corner", src);
         cv::waitKey(50);
@@ -261,12 +245,12 @@ int Camera::getTransformCamScreenSimple()
     else
     {
         botLeft[0] = pt2.x;
-        botLeft[1] = pt2.y;
+        botLeft[1] = this->cam_height - pt2.y;
         cv::circle(src, pt2, 7, cv::Scalar(255, 0,255),3);
         cv::imshow("Corner", src);
         cv::waitKey(50);
         botRight[0] = pt1.x;
-        botRight[1] = pt1.y;
+        botRight[1] = this->cam_height - pt1.y;
         cv::circle(src, pt1, 7, cv::Scalar(0, 255, 0),3);
         cv::imshow("Corner", src);
 
@@ -278,8 +262,8 @@ int Camera::getTransformCamScreenSimple()
 
 
     /*https://www.particleincell.com/2012/quad-interpolation */
-    //dans l'image cam�ra -> coordonn�es P(x,y)
-    //dans le carr� unit� -> coordonn�es P'(l,m)
+    //dans l'image camera -> coordonnees P(x,y)
+    //dans le carre unite -> coordonnees P'(l,m)
 
     // x = a(0) + a(1)*l + a(2)*m + a(3)*l*m
     // y = b(0) + b(1)*l + b(2)*m + b(3)*l*m
@@ -287,10 +271,10 @@ int Camera::getTransformCamScreenSimple()
 
     /*
 
-    |x1|     |1 0 0 0|   |a0|
-    |x2|  =  |1 1 0 0| * |a1|
-    |x3|     |1 1 1 1|   |a2|
-    |x4|     |1 0 1 0|   |a3|
+    |x0|     |1 0 0 0|   |a0|
+    |x1|  =  |1 1 0 0| * |a1|
+    |x2|     |1 1 1 1|   |a2|
+    |x3|     |1 0 1 0|   |a3|
 
     donc
 
@@ -308,15 +292,17 @@ int Camera::getTransformCamScreenSimple()
 
     */
 
-    a[0] = topLeft[0];
-    a[1] = botLeft[0] - topLeft[0];
-    a[2] = botRight[0] - topLeft[0];
-    a[3] = topLeft[0] - botLeft[0] + topRight[0] - botRight[0];
+    a[0] = botLeft[0];
+    a[1] = botRight[0] - botLeft[0];
+    a[2] = topLeft[0] - botLeft[0];
+    a[3] = botLeft[0] - botRight[0] + topRight[0] - topLeft[0];
 
-    b[0] = topLeft[1];
-    b[1] = botLeft[1] - topLeft[1];
-    b[2] = botRight[1] - topLeft[1];
-    b[3] = topLeft[1] - botLeft[1] + topRight[1] - botRight[1];
+    b[0] = botLeft[1];
+    b[1] = botRight[1] - botLeft[1];
+    b[2] = topLeft[1] - botLeft[1];
+    b[3] = botLeft[1] - botRight[1] + topRight[1] - topLeft[1];
+
+    std::cout<< botLeft[0]<<","<<botLeft[1]<<","<<botRight[0]<<","<<botRight[1]<<","<<topRight[0]<<","<<topRight[1]<<","<<topLeft[0]<<","<<topLeft[1]<<std::endl;
 
 
     return 0;
@@ -326,26 +312,27 @@ cv::Vec2f Camera::computeScreenToGame(cv::Vec2f point)
 {
 
     /*https://www.particleincell.com/2012/quad-interpolation */
-    //dans l'image cam�ra -> coordonn�es P(x,y)
-    //dans le carr� unit� -> coordonn�es P'(u,v)
+    //dans l'image camera -> coordonnees P(x,y)
+    //dans le carre unite -> coordonnees P'(u,v)
 
     // x = a(0) + a(1)*u + a(2)*v + a(3)*u*v
     // y = b(0) + b(1)*u + b(2)*v + b(3)*u*v
 
+    double x = point[0];
+    double y = this->cam_height - point[1];
 
-    float x = point[0];
-    float y = point[1];
-    float aa = a[3] * b[2] - a[2] * b[3];
-    float bb = a[3] * b[0] - a[0] * b[3] + a[1] * b[2] - a[2] * b[1] + x * b[3] - y * a[3];
-    float cc = a[1] * b[0] - a[0] * b[1] + x * b[1] - y * a[1];
+    double aa = a[3] * b[2] - a[2] * b[3];
+    double bb = a[3] * b[0] - a[0] * b[3] + a[1] * b[2] - a[2] * b[1] + x * b[3] - y * a[3];
+    double cc = a[1] * b[0] - a[0] * b[1] + x * b[1] - y * a[1];
 
-    float det = std::sqrt(bb*bb-4*aa*cc);
-    float u = (-bb + det) / (2 * aa);
-    float v = (x - a[0] - a[2] * u) / (a[1] + a[3] * u);
+    double det = std::sqrt(bb*bb-4*aa*cc);
+    double u = (-bb + det) / (2 * aa);
+    double v = (x - a[0] - (a[2] * u)) / (a[1] + (a[3] * u));
+
 
     cv::Vec2f ret;
-    ret[0] = u*(float)width;
-    ret[1] = v*(float)height;
+    ret[1] = (1-u)*(float)height;
+    ret[0] = v*(float)width;
 
     return ret;
 

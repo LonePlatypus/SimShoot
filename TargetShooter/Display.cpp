@@ -79,6 +79,12 @@ int Display::addTarget(int X, int Y, int targetId)
 //On rajoute l'image d'impact (plus pour du débug qu'autre chose)
 int Display::addHit(int X, int Y)
 {
+    if(X < 0 || Y <  0 || X > this->display_width || Y > this->display_height)
+    {
+        std::cerr << "Hit coords are oustide bounds : ["<<X<<";"<<Y<<"]"<<std::endl;
+        return -1;
+    }
+
     cv::Mat overlay;
     overlay = hit;
 

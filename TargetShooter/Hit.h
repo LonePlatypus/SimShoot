@@ -7,6 +7,9 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/imgcodecs.hpp"
 
+#include <time.h>
+#include "Camera.h"
+
 #define SHOOTING_NAME "Shooting screen"
 
 class Hit
@@ -16,6 +19,10 @@ private :
 	bool detected;
 	
 	std::vector<cv::Vec2i> Hits;
+
+    std::vector<cv::Vec2i> Cam_Hits;
+    int cam_xHit;
+    int cam_yHit;
 
 	int xHit;
 	int yHit;
@@ -32,6 +39,8 @@ private :
     cv::Mat dil;
     cv::Mat element;
 
+    int NbHit;
+
 public :
 
 
@@ -39,7 +48,7 @@ public :
 
 	int inputMouse();
 
-	static void CallBackMouse(int event, int x, int y, int flags, void* userdata);
+    static void CallBackMouse(int event, int x, int y, int flags,void* userdata);
 
     bool getCamOpen();
 
@@ -51,8 +60,8 @@ public :
 	void setHitX(int x);
 	void setHitY(int y);
 
-    void startVideoCap(int deviceID);
-    int inputCamera();
+    void startVideoCap();
+    int inputCamera(Camera *camera);
 
 	std::vector<cv::Vec2i> getHits();
 

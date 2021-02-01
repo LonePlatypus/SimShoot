@@ -52,12 +52,15 @@ private :
 	cv::Vec2f botLeft;
 	cv::Vec2f botRight;
 
-	cv::Vec4f a;
-	cv::Vec4f b;
+    cv::Vec4d a;
+    cv::Vec4d b;
 
 	std::vector<cv::Point2f> corners;
 
 	bool calibrated;
+
+    int cam_width;
+    int cam_height;
 	
 public :
 
@@ -70,7 +73,7 @@ public :
 
 	int getTransformCamScreenSimple();
 
-	cv::Vec2f computeScreenToGame(cv::Vec2f point);
+    cv::Vec2f computeScreenToGame(cv::Vec2f point);
 
 	int getWidth();
 	int getHeight();

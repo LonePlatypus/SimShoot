@@ -249,6 +249,7 @@ CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShoo
 CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.cpp.obj: C:/Users/Sigma/Documents/opencv450/install/include/opencv2/video/background_segm.hpp
 CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.cpp.obj: C:/Users/Sigma/Documents/opencv450/install/include/opencv2/video/tracking.hpp
 CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.cpp.obj: C:/Users/Sigma/Documents/opencv450/install/include/opencv2/videoio.hpp
+CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.cpp.obj: C:/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Camera.h
 CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.cpp.obj: C:/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.cpp
 CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.cpp.obj: C:/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.h
 

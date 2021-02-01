@@ -16,66 +16,24 @@ int main()
                  CV_MAJOR_VERSION << "." << CV_MINOR_VERSION
               << "." << CV_SUBMINOR_VERSION << std::endl;
 
-    /*
-    TestCamPerso camPerso;
-    cv::Mat frame;
-
-
-    if (!camPerso.cap.isOpened())
-    {
-        std::cerr << "ERROR! Unable to open camera\n";
-    }
-    else
-    {
-        while(1)
-        {
-            clock_t timeA;
-            clock_t timeB;
-            double elapsedA=0.0;
-
-            timeA= clock();
-            camPerso.getFrame(frame);
-//            cap.read(frame);
-            //std::cout << camPerso.cap.getBackendName() << std::endl;
-
-            timeB = clock();
-            elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
-            std::cout <<"elapsed get image : "<<elapsedA<<std::endl;
-            cv::imshow("debug",frame);
-            cv::waitKey(5);
-
-        }
-    }
-
-*/
-    //exit(127);
-
 
     //On met tout en place pour l'affichage
     Display display;
 
     Camera camera(0, display.getDisplayWidth() , display.getDisplayHeight());
-    //camera.getTransformCamScreenSimple(display);
-    //camera.DisplayCamera();
 
     //Les settings
     settings settings;
-    //Les inputs (souris / cam�ra)
+    //Les inputs (souris / camera)
     Hit hit;
-    hit.startVideoCap(0);
+    hit.startVideoCap();
     //On lance le jeu 1
     game1 game(&settings, display.getTargetId(&settings));
-    bool up = false;
 
     clock_t t;
     t = clock();
     clock_t t_frame;
     t_frame = t;
-
-
-    clock_t timeA;
-    clock_t timeB;
-    double elapsedA=0.0;
 
     //sortie du programme si click sur exit
     while (settings.getExit() == false)
@@ -84,13 +42,9 @@ int main()
         {
         case 1 :
         {
-            timeA= clock();
-            hit.inputCamera();
-            timeB = clock();
-            elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
-            std::cout <<"elapsed : "<<elapsedA<<std::endl;
+            hit.inputCamera(&camera);
 
-            for(int i = 0 ; i < hit.getHits().size() ; ++i)
+            for(int i = 0 ; i < (int)hit.getHits().size() ; ++i)
             {
 
             }
@@ -110,12 +64,12 @@ int main()
 
         clock_t frame_time = clock() - t_frame;
 
-        //rafraichissement � 30fps
+        //rafraichissement a 30fps
         if (((double)frame_time) / CLOCKS_PER_SEC > 0.03)
         {
             t_frame = clock();
 
-            //si on veut arr�ter le jeu
+            //si on veut arreter le jeu
             if (settings.getStop() || game.getNbCible() < 0)
             {
                 settings.setStop(false);
@@ -124,7 +78,7 @@ int main()
                 game.reset();
 
             }
-            //d�marage du jeu avec les settings courants
+            //demarage du jeu avec les settings courants
             else if (settings.getStart())
             {
                 settings.setStart(false);
@@ -132,7 +86,7 @@ int main()
                 game.countDownScreen(&display, 3);
 
             }
-            //si le jeu est lanc�, on traite les tirs + l'affichage
+            //si le jeu est lance, on traite les tirs + l'affichage
             else if (game.getState() == 1)
             {
                 game.update(&display);
@@ -141,7 +95,6 @@ int main()
             {
                 display.display(1);
             }
-
         }
 
     }
