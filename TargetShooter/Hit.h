@@ -41,6 +41,8 @@ private :
 
     int NbHit;
 
+    bool ignoreFrame;
+
 public :
 
 
@@ -59,6 +61,9 @@ public :
 	int getHitY();
 	void setHitX(int x);
 	void setHitY(int y);
+
+    void setIgnoreFrame(bool value);
+    bool getIgnoreFrame();
 
     void startVideoCap();
     int inputCamera(Camera *camera);

@@ -13,6 +13,8 @@ Hit::Hit()
     camOpen = false;
 
     NbHit = 0;
+    ignoreFrame = false;
+
 }
 
 //Traitement des donnees souris
@@ -69,6 +71,15 @@ std::vector<cv::Vec2i> Hit::getHits()
     return Hits;
 }
 
+void Hit::setIgnoreFrame(bool value)
+{
+    this->ignoreFrame = value;
+}
+
+bool Hit::getIgnoreFrame()
+{
+    return this->ignoreFrame;
+}
 
 int Hit::inputCamera(Camera *camera)
 {
@@ -87,103 +98,110 @@ int Hit::inputCamera(Camera *camera)
 #endif
 
         bool read = CaptureVideo::getInstance().cap().read(laser);
-        bool empty = laser.empty();
-        if(read && !empty)
+
+        if(!ignoreFrame)
         {
+            bool empty = laser.empty();
+            if(read && !empty)
+            {
 
 #ifdef DEBUG_time
-            timeB = clock();
-            elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
-            std::cout <<"elapsed get image : "<<elapsedA<<std::endl;
+                timeB = clock();
+                elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
+                std::cout <<"elapsed get image : "<<elapsedA<<std::endl;
 
-            timeA= clock();
+                timeA= clock();
 #endif
-            extractChannel(laser, red,2);
+                extractChannel(laser, red,2);
 #ifdef DEBUG_time
-            timeB = clock();
-            elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
-            std::cout <<"elapsed channel split : "<<elapsedA<<std::endl;
+                timeB = clock();
+                elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
+                std::cout <<"elapsed channel split : "<<elapsedA<<std::endl;
 
-            timeA= clock();
+                timeA= clock();
 #endif
-            threshold(red,tresh,253,255,cv::THRESH_BINARY);
+                threshold(red,tresh,253,255,cv::THRESH_BINARY);
 #ifdef DEBUG_time
-            timeB = clock();
-            elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
-            std::cout <<"elapsed treshold : "<<elapsedA<<std::endl;
+                timeB = clock();
+                elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
+                std::cout <<"elapsed treshold : "<<elapsedA<<std::endl;
 
-            timeA= clock();
+                timeA= clock();
 #endif
-            int erosion_size = 1;
-            element = getStructuringElement( cv::MORPH_ELLIPSE ,
-                                             cv::Size( 2*erosion_size + 1, 2*erosion_size+1 ),
-                                             cv::Point( erosion_size, erosion_size ) );
-            cv::erode( tresh, erod, element);
+                int erosion_size = 1;
+                element = getStructuringElement( cv::MORPH_ELLIPSE ,
+                                                 cv::Size( 2*erosion_size + 1, 2*erosion_size+1 ),
+                                                 cv::Point( erosion_size, erosion_size ) );
+                cv::erode( tresh, erod, element);
 
 #ifdef DEBUG_time
-            timeB = clock();
-            elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
-            std::cout <<"elapsed erosion : "<<elapsedA<<std::endl;
+                timeB = clock();
+                elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
+                std::cout <<"elapsed erosion : "<<elapsedA<<std::endl;
 
-            timeA= clock();
+                timeA= clock();
 #endif
-            cv::dilate( erod, dil, element);
+                cv::dilate( erod, dil, element);
 #ifdef DEBUG_time
-            timeB = clock();
-            elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
-            std::cout <<"elapsed dilatation : "<<elapsedA<<std::endl;
+                timeB = clock();
+                elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
+                std::cout <<"elapsed dilatation : "<<elapsedA<<std::endl;
 
-            timeA= clock();
+                timeA= clock();
 #endif
-            cv::Moments moment;
-            moment = cv::moments(dil, true);
+                cv::Moments moment;
+                moment = cv::moments(dil, true);
 #ifdef DEBUG_time
-            timeB = clock();
-            elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
-            std::cout <<"elapsed moments : "<<elapsedA<<std::endl;
+                timeB = clock();
+                elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
+                std::cout <<"elapsed moments : "<<elapsedA<<std::endl;
 #endif
 #ifdef DEBUG_frame
-            cv::imshow("debug", laser);
-            cv::waitKey(5);
+                cv::imshow("debug", laser);
+                cv::waitKey(5);
 #endif
 
+                if(moment.m00 > 50 && moment.m00 < 400)
+                {
+                    int cX = int(moment.m10/moment.m00);
+                    int cY = int(moment.m01/moment.m00);
+                    cv::Vec2f hit(cX, cY);
 
-            if(moment.m00 > 10 && moment.m00 > 1000)
-            {
-                int cX = int(moment.m10/moment.m00);
-                int cY = int(moment.m01/moment.m00);
-                cv::Vec2f hit(cX, cY);
+                    cv::Vec2f hit_screen = camera->computeScreenToGame(hit);
 
-                cv::Vec2f hit_screen = camera->computeScreenToGame(hit);
-
-                this->xHit = hit_screen(0);
-                this->yHit = hit_screen(1);
-                this->Hits.push_back(hit_screen);
-                this->detected = true;
+                    this->xHit = hit_screen(0);
+                    this->yHit = hit_screen(1);
+                    this->Hits.push_back(hit_screen);
+                    this->detected = true;
+                    this->ignoreFrame = true;
 
 #ifdef DEBUG_frame_rec
-                cv::Point2i pt;
-                pt.x = hit(0);
-                pt.y = hit(1);
-                cv::circle(laser, pt, 6 , cv::Scalar(255,0,0),2);
+                    cv::Point2i pt;
+                    pt.x = hit(0);
+                    pt.y = hit(1);
+                    cv::circle(laser, pt, 6 , cv::Scalar(255,0,0),2);
 
-                std::string name = "img_" + std::to_string(NbHit)+".jpg";
-                NbHit++;
-                cv::imwrite(name, laser);
-                cv::imshow("hit_img", laser);
-                cv::waitKey(1000);
+                    std::string name = "img_" + std::to_string(NbHit)+".jpg";
+                    NbHit++;
+                    cv::imwrite(name, laser);
+                    cv::imshow("hit_img", laser);
+                    cv::waitKey(1000);
 #endif
 
-                //std::cout << "X : "<< this->xHit <<"  |Y : " <<this->yHit << std::endl;
+                }
 
+                return 0;
+            }
+            else
+            {
+                std::cerr << "ERROR! no frame\n";
+                return -1;
             }
 
-            return 0;
         }
         else
         {
-            std::cerr << "ERROR! no frame\n";
-            return -1;
+            ignoreFrame = false;
         }
     }
     else

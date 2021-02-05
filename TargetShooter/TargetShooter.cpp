@@ -33,7 +33,7 @@ int main()
     clock_t t;
     t = clock();
     clock_t t_frame;
-    t_frame = t;
+    t_frame = clock();
 
     //sortie du programme si click sur exit
     while (settings.getExit() == false)
@@ -43,11 +43,6 @@ int main()
         case 1 :
         {
             hit.inputCamera(&camera);
-
-            for(int i = 0 ; i < (int)hit.getHits().size() ; ++i)
-            {
-
-            }
         }
             break;
         case 2 :

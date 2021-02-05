@@ -302,7 +302,7 @@ int Camera::getTransformCamScreenSimple()
     b[2] = topLeft[1] - botLeft[1];
     b[3] = botLeft[1] - botRight[1] + topRight[1] - topLeft[1];
 
-    std::cout<< botLeft[0]<<","<<botLeft[1]<<","<<botRight[0]<<","<<botRight[1]<<","<<topRight[0]<<","<<topRight[1]<<","<<topLeft[0]<<","<<topLeft[1]<<std::endl;
+    //std::cout<< botLeft[0]<<","<<botLeft[1]<<","<<botRight[0]<<","<<botRight[1]<<","<<topRight[0]<<","<<topRight[1]<<","<<topLeft[0]<<","<<topLeft[1]<<std::endl;
 
 
     return 0;
@@ -408,6 +408,9 @@ CaptureVideo::CaptureVideo()
     cap_ = new cv::VideoCapture();
     cap_->open(0, cv::CAP_ANY);
     //assert(cap_->isOpened());
+    cap_->set(cv::CAP_PROP_FRAME_WIDTH, 1920);
+    cap_->set(cv::CAP_PROP_FRAME_HEIGHT, 1080);
+
 }
 
 CaptureVideo::~CaptureVideo()
