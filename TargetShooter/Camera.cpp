@@ -97,7 +97,6 @@ void Camera::CallBackMouseCorner(int event, int x, int y, int flags, void* userd
         point.x = x;
         point.y = y;
 
-
         ((Camera*)userdata)->corners.push_back(point);
     }
 }
@@ -163,7 +162,7 @@ int Camera::getTransformCamScreenSimple()
     int pose1 = 0;
     cv::Point2i pt2 = corners[1];
     int pose2 = 1;
-    for (int i = 2; i < corners.size(); i++)
+    for (int i = 2; i < (int)corners.size(); i++)
     {
         cv::Point2i pt = corners[i];
 
@@ -260,6 +259,10 @@ int Camera::getTransformCamScreenSimple()
 
     calibrated = true;
 
+    point.push_back(cv::Point(botLeft[0],this->cam_height - botLeft[1]));
+    point.push_back(cv::Point(topLeft[0],this->cam_height - topLeft[1]));
+    point.push_back(cv::Point(topRight[0],this->cam_height - topRight[1]));
+    point.push_back(cv::Point(botRight[0],this->cam_height - botRight[1]));
 
     /*https://www.particleincell.com/2012/quad-interpolation */
     //dans l'image camera -> coordonnees P(x,y)
@@ -302,9 +305,6 @@ int Camera::getTransformCamScreenSimple()
     b[2] = topLeft[1] - botLeft[1];
     b[3] = botLeft[1] - botRight[1] + topRight[1] - topLeft[1];
 
-    //std::cout<< botLeft[0]<<","<<botLeft[1]<<","<<botRight[0]<<","<<botRight[1]<<","<<topRight[0]<<","<<topRight[1]<<","<<topLeft[0]<<","<<topLeft[1]<<std::endl;
-
-
     return 0;
 }
 
@@ -346,6 +346,20 @@ int Camera::getWidth()
 int Camera::getHeight()
 {
     return this->height;
+}
+
+int Camera::getCamWidth()
+{
+    return this->cam_width;
+}
+int Camera::getCamHeight()
+{
+    return this->cam_height;
+}
+
+std::vector<cv::Point> Camera::getPoints()
+{
+    return this->point;
 }
 
 void Camera::setWidth(int width_)

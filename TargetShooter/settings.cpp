@@ -24,6 +24,8 @@ settings::settings()
     useMouse = true;
     useCamera = false;
 
+    gamma = 1.0;
+
 }
 
 int settings::displaySettings(Camera *camera , bool camOpen)
@@ -71,6 +73,9 @@ int settings::displaySettings(Camera *camera , bool camOpen)
     {
         cvui::rect(settings_frame, 225, 525, 110, 60, 0x00ff00, 0x00ff00);
     }
+
+    cvui::text(settings_frame, 10, 330, "Gamma correction");
+    cvui::trackbar(settings_frame, 10, 350, 380, &gamma, (double)0.5, (double)5.0);
 
     if (cvui::button(settings_frame, 70, 460, 100, 50, "Start")) {
         // button was clicked
@@ -211,4 +216,9 @@ double settings::getDownTime()
 int settings::getNbCibles()
 {
     return nbCibles;
+}
+
+double settings::getGamma()
+{
+    return this->gamma;
 }

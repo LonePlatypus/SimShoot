@@ -57,6 +57,8 @@ private :
 
 	std::vector<cv::Point2f> corners;
 
+    std::vector<cv::Point>point;
+
 	bool calibrated;
 
     int cam_width;
@@ -77,6 +79,11 @@ public :
 
 	int getWidth();
 	int getHeight();
+
+    int getCamWidth();
+    int getCamHeight();
+
+    std::vector<cv::Point> getPoints();
 
 	void setWidth(int width_);
 	void setHeight(int height_);

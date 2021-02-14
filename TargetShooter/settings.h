@@ -27,6 +27,8 @@ private :
     double down_time;
     int nbCibles;
 
+    double gamma;
+
 public:
 
     settings();
@@ -51,6 +53,8 @@ public:
     bool getStop();
     bool getStart();
     bool getExit();
+
+    double getGamma();
 
     void setUpTime(double time);
     void setDownTime(double time);

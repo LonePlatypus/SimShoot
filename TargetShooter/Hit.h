@@ -66,7 +66,7 @@ public :
     bool getIgnoreFrame();
 
     void startVideoCap();
-    int inputCamera(Camera *camera);
+    int inputCamera(Camera *camera, double gamma);
 
 	std::vector<cv::Vec2i> getHits();
 

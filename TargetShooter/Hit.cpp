@@ -1,7 +1,7 @@
 #include "Hit.h"
 
 //#define DEBUG_time
-//#define DEBUG_frame
+#define DEBUG_frame
 //#define DEBUG_frame_rec
 
 Hit::Hit()
@@ -81,7 +81,7 @@ bool Hit::getIgnoreFrame()
     return this->ignoreFrame;
 }
 
-int Hit::inputCamera(Camera *camera)
+int Hit::inputCamera(Camera *camera, double gamma)
 {
 
 #ifdef DEBUG_time
@@ -120,7 +120,32 @@ int Hit::inputCamera(Camera *camera)
 
                 timeA= clock();
 #endif
-                threshold(red,tresh,253,255,cv::THRESH_BINARY);
+                cv::Mat img_gamma_corrected;
+                //gamma correction
+                CV_Assert(gamma >= 0);
+                //! [changing-contrast-brightness-gamma-correction]
+                cv::Mat lookUpTable(1, 256, CV_8U);
+                uchar* p = lookUpTable.ptr();
+                for( int i = 0; i < 256; ++i)
+                    p[i] = cv::saturate_cast<uchar>(pow(i / 255.0, gamma) * 255.0);
+
+                cv::Mat res = red.clone();
+                LUT(red, lookUpTable, res);
+
+                //remove external from screen to avoid saturation
+                cv::Mat mask = cv::Mat::zeros(res.size(), res.type());
+                std::vector<cv::Point> pts = camera->getPoints();
+                cv::Point corners[1][4];
+                corners[0][0] = pts[0];
+                corners[0][1] = pts[1];
+                corners[0][2] = pts[2];
+                corners[0][3] = pts[3];
+                const cv::Point* corner_list[1] = { corners[0] };
+                const int size = 4;
+                cv::fillPoly( mask, corner_list, &size, 1, cv::Scalar( 255, 255, 255 ));
+                cv::bitwise_and(res, mask, res);
+
+                threshold(res,tresh,253,255,cv::THRESH_BINARY);
 #ifdef DEBUG_time
                 timeB = clock();
                 elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
@@ -158,6 +183,7 @@ int Hit::inputCamera(Camera *camera)
 #endif
 #ifdef DEBUG_frame
                 cv::imshow("debug", laser);
+                cv::imshow("res", res);
                 cv::waitKey(5);
 #endif
 
@@ -203,6 +229,7 @@ int Hit::inputCamera(Camera *camera)
         {
             ignoreFrame = false;
         }
+        return 0;
     }
     else
     {

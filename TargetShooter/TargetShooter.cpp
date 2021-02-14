@@ -41,9 +41,7 @@ int main()
         switch (settings.getInput())
         {
         case 1 :
-        {
-            hit.inputCamera(&camera);
-        }
+            hit.inputCamera(&camera , settings.getGamma());
             break;
         case 2 :
             hit.inputMouse();
