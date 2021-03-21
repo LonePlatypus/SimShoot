@@ -11,6 +11,7 @@ ${srcDir}/settings.cpp
 ${srcDir}/Display.cpp
 ${srcDir}/game1.cpp
 ${srcDir}/Camera.cpp
+${srcDir}/Record.cpp
 )
 set(headDir ../TargetShooter)
 set(headers
@@ -20,6 +21,7 @@ ${headDir}/settings.h
 ${headDir}/Display.h
 ${headDir}/game1.h
 ${headDir}/Camera.h
+${headDir}/Record.h
 ${headDir}/aruco_nano.h
 )
 

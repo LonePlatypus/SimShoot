@@ -4,6 +4,7 @@
 #include <random>
 #include "settings.h"
 #include "Hit.h"
+#include "Record.h"
 
 #define SHOOTING_NAME "Shooting screen"
 
@@ -42,7 +43,7 @@ public :
 
 	int getTargetId(settings *setting);
 
-	int updateHit(Hit *hit);
+    int updateHit(Hit *hit, Record *record);
 
 	int getDisplayWidth();
 	int getDisplayHeight();

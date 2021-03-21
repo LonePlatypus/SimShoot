@@ -10,8 +10,8 @@
 void getScreenSizeWin32(int& rfWidth,
                         int& rfHeight)
 {
-	rfWidth = (int)GetSystemMetrics(SM_CXSCREEN);
-	rfHeight = (int)GetSystemMetrics(SM_CYSCREEN);
+    rfWidth = (int)GetSystemMetrics(SM_CXSCREEN);
+    rfHeight = (int)GetSystemMetrics(SM_CYSCREEN);
 }
 #endif
 
@@ -20,28 +20,28 @@ void getScreenSizeWin32(int& rfWidth,
 void getScreenSizeLinux(int& rfWidth,
                         int& rfHeight)
 {
-  Linux_X11GetScreenSize(&rfWidth, &rfHeight);
+    Linux_X11GetScreenSize(&rfWidth, &rfHeight);
 }
 #endif
 
 
 void Display::GetScreenResoluton(
-    int& rfWidth,
-    int& rfHeight)
+        int& rfWidth,
+        int& rfHeight)
 {
 #ifdef _WIN32
-  getScreenSizeWin32(rfWidth, rfHeight);
+    getScreenSizeWin32(rfWidth, rfHeight);
 #elif __linux__
-  getScreenSizeLinux(rfWidth, rfHeight);
+    getScreenSizeLinux(rfWidth, rfHeight);
 #endif
 }
 
 Display::Display()
 {
-  GetScreenResoluton(display_width, display_height);
+    GetScreenResoluton(display_width, display_height);
 
-	background = cv::Mat::zeros(cv::Size(display_width, display_height), CV_8UC3);
-	background = cv::Scalar(255, 255, 255);
+    background = cv::Mat::zeros(cv::Size(display_width, display_height), CV_8UC3);
+    background = cv::Scalar(255, 255, 255);
     resetDisplayedbackground();
 
     cv::namedWindow(SHOOTING_NAME, cv::WINDOW_FULLSCREEN);
@@ -217,13 +217,17 @@ int Display::getTargetId(settings *setting)
 }
 
 //récupération de l'info de l'impact
-int Display::updateHit(Hit* hit)
+int Display::updateHit(Hit* hit, Record *record)
 {
 
     if (hit && hit->getDetected())
     {
         hit->setDetected ( false);
         addHit(hit->getHitX(), hit->getHitY());
+        if(record->getRecording())
+        {
+            record->addHit(hit->getHitX(), hit->getHitY());
+        }
         return 0;
     }
     else

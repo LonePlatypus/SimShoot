@@ -1,7 +1,7 @@
 #include "Hit.h"
 
 //#define DEBUG_time
-#define DEBUG_frame
+//#define DEBUG_frame
 //#define DEBUG_frame_rec
 
 Hit::Hit()
@@ -81,7 +81,7 @@ bool Hit::getIgnoreFrame()
     return this->ignoreFrame;
 }
 
-int Hit::inputCamera(Camera *camera, double gamma)
+int Hit::inputCamera(Camera *camera, double gamma , Record * record)
 {
 
 #ifdef DEBUG_time
@@ -182,8 +182,8 @@ int Hit::inputCamera(Camera *camera, double gamma)
                 std::cout <<"elapsed moments : "<<elapsedA<<std::endl;
 #endif
 #ifdef DEBUG_frame
-                cv::imshow("debug", laser);
-                cv::imshow("res", res);
+                //cv::imshow("debug", laser);
+                cv::imshow("resultat gamma corrected", res);
                 cv::waitKey(5);
 #endif
 
@@ -213,7 +213,10 @@ int Hit::inputCamera(Camera *camera, double gamma)
                     cv::imshow("hit_img", laser);
                     cv::waitKey(1000);
 #endif
-
+                    if(record->getRecording())
+                    {
+                        record->recordImg(laser);
+                    }
                 }
 
                 return 0;

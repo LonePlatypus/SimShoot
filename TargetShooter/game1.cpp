@@ -60,7 +60,7 @@ int game1::countDownScreen(Display *display, int time)
 	return 0;
 }
 
-int game1::update(Display *display)
+int game1::update(Display *display, Record *record)
 {
 
 	clock_t time = clock() - t;
@@ -110,7 +110,11 @@ int game1::update(Display *display)
 			up = true;
 			t = clock();
 			display->display(1);
-		}
+            if(record->getRecording())
+            {
+                record->addTarget(rX,rY,targetId);
+            }
+        }
 	}
 
 	return 0;

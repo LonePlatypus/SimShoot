@@ -29,6 +29,8 @@ private :
 
     double gamma;
 
+    bool record;
+
 public:
 
     settings();
@@ -44,6 +46,9 @@ public:
     void setTargetRound(bool state);
     bool getTargetISPC();
     bool getTargetRound();
+
+    bool getRecord();
+    void setRecord(bool state);
 
     int getInput();
 

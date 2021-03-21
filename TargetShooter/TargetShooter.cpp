@@ -27,6 +27,11 @@ int main()
     //Les inputs (souris / camera)
     Hit hit;
     hit.startVideoCap();
+
+    //On lance l'enregistrement des résultats
+    Record record;
+    record.addPath("results.csv");
+
     //On lance le jeu 1
     game1 game(&settings, display.getTargetId(&settings));
 
@@ -41,7 +46,7 @@ int main()
         switch (settings.getInput())
         {
         case 1 :
-            hit.inputCamera(&camera , settings.getGamma());
+            hit.inputCamera(&camera , settings.getGamma(), &record);
             break;
         case 2 :
             hit.inputMouse();
@@ -52,7 +57,7 @@ int main()
         }
 
 
-        display.updateHit(&hit);
+        display.updateHit(&hit , &record);
         settings.displaySettings(&camera , hit.getCamOpen());
 
         clock_t frame_time = clock() - t_frame;
@@ -77,12 +82,14 @@ int main()
                 settings.setStart(false);
                 game.start(&settings, display.getTargetId(&settings));
                 game.countDownScreen(&display, 3);
+                record.setRecording(settings.getRecord());
+                record.addSubFolder();
 
             }
             //si le jeu est lance, on traite les tirs + l'affichage
             else if (game.getState() == 1)
             {
-                game.update(&display);
+                game.update(&display, &record);
             }
             else
             {
@@ -92,6 +99,7 @@ int main()
 
     }
 
+    record.closeFile();
     CaptureVideo::delInstance();
     return 0;
 }

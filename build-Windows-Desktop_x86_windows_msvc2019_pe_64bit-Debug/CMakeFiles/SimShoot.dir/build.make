@@ -159,6 +159,20 @@ CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShoo
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Camera.cpp.s"
 	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp -o CMakeFiles\SimShoot.dir\C_\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Camera.cpp.s
 
+CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.obj: CMakeFiles/SimShoot.dir/flags.make
+CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.obj: CMakeFiles/SimShoot.dir/includes_CXX.rsp
+CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.obj: C:/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Sigma\source\repos\SimShoot\SimShoot\build-Windows-Desktop_x86_windows_msvc2019_pe_64bit-Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.obj"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\SimShoot.dir\C_\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Record.cpp.obj -c C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Record.cpp
+
+CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.i"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Record.cpp > CMakeFiles\SimShoot.dir\C_\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Record.cpp.i
+
+CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.s"
+	C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Record.cpp -o CMakeFiles\SimShoot.dir\C_\Users\Sigma\source\repos\SimShoot\SimShoot\TargetShooter\Record.cpp.s
+
 # Object files for target SimShoot
 SimShoot_OBJECTS = \
 "CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.cpp.obj" \
@@ -166,7 +180,8 @@ SimShoot_OBJECTS = \
 "CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/settings.cpp.obj" \
 "CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Display.cpp.obj" \
 "CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/game1.cpp.obj" \
-"CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Camera.cpp.obj"
+"CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Camera.cpp.obj" \
+"CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.obj"
 
 # External object files for target SimShoot
 SimShoot_EXTERNAL_OBJECTS =
@@ -177,6 +192,7 @@ SimShoot.exe: CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimSh
 SimShoot.exe: CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Display.cpp.obj
 SimShoot.exe: CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/game1.cpp.obj
 SimShoot.exe: CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Camera.cpp.obj
+SimShoot.exe: CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.obj
 SimShoot.exe: CMakeFiles/SimShoot.dir/build.make
 SimShoot.exe: C:/Users/Sigma/Documents/opencv450/install/x64/mingw/lib/libopencv_gapi451.dll.a
 SimShoot.exe: C:/Users/Sigma/Documents/opencv450/install/x64/mingw/lib/libopencv_highgui451.dll.a
@@ -196,7 +212,7 @@ SimShoot.exe: C:/Users/Sigma/Documents/opencv450/install/x64/mingw/lib/libopencv
 SimShoot.exe: CMakeFiles/SimShoot.dir/linklibs.rsp
 SimShoot.exe: CMakeFiles/SimShoot.dir/objects1.rsp
 SimShoot.exe: CMakeFiles/SimShoot.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Sigma\source\repos\SimShoot\SimShoot\build-Windows-Desktop_x86_windows_msvc2019_pe_64bit-Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable SimShoot.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Sigma\source\repos\SimShoot\SimShoot\build-Windows-Desktop_x86_windows_msvc2019_pe_64bit-Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable SimShoot.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\SimShoot.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

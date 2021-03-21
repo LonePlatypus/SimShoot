@@ -222,6 +222,33 @@ C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimShoot.dir\build.make CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.cpp.s
 .PHONY : C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.cpp.s
 
+C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.obj: C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.obj
+
+.PHONY : C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.obj
+
+# target to build an object file
+C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimShoot.dir\build.make CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.obj
+.PHONY : C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.obj
+
+C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.i: C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.i
+
+.PHONY : C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.i
+
+# target to preprocess a source file
+C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimShoot.dir\build.make CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.i
+.PHONY : C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.i
+
+C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.s: C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.s
+
+.PHONY : C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.s
+
+# target to generate assembly for a file
+C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimShoot.dir\build.make CMakeFiles/SimShoot.dir/C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.s
+.PHONY : C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.cpp.s
+
 C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/TargetShooter.obj: C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/TargetShooter.cpp.obj
 
 .PHONY : C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/TargetShooter.obj
@@ -321,6 +348,9 @@ help:
 	@echo ... C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.obj
 	@echo ... C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.i
 	@echo ... C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Hit.s
+	@echo ... C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.obj
+	@echo ... C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.i
+	@echo ... C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/Record.s
 	@echo ... C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/TargetShooter.obj
 	@echo ... C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/TargetShooter.i
 	@echo ... C_/Users/Sigma/source/repos/SimShoot/SimShoot/TargetShooter/TargetShooter.s

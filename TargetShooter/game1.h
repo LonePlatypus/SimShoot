@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Display.h"
 #include <random>
+#include "Record.h"
 
 using namespace std;
 
@@ -42,7 +43,7 @@ public :
 
 	int countDownScreen(Display *display, int time);
 
-	int update(Display *display);
+    int update(Display *display, Record *record);
 	int start(settings* settings, int target);
 	int stop(Display *display);
 	int reset();

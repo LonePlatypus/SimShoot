@@ -24,7 +24,9 @@ settings::settings()
     useMouse = true;
     useCamera = false;
 
-    gamma = 1.0;
+    gamma = 4.0;
+
+    record = false;
 
 }
 
@@ -53,16 +55,17 @@ int settings::displaySettings(Camera *camera , bool camOpen)
 
     cvui::checkbox(settings_frame, 10, 300, "Mouse Input", &useMouse);
 
-
     if (!camOpen)
     {
-        cvui::rect(settings_frame, 209, 299, 17, 17, 0xff0000, 0xff0000);
+        cvui::rect(settings_frame, 139, 299, 17, 17, 0xff0000, 0xff0000);
     }
     else
     {
-        cvui::rect(settings_frame, 209, 299, 17, 17, 0x00ff00, 0x00ff00);
+        cvui::rect(settings_frame, 139, 299, 17, 17, 0x00ff00, 0x00ff00);
     }
-    cvui::checkbox(settings_frame, 210, 300, "Camera Input", &useCamera);
+    cvui::checkbox(settings_frame, 140, 300, "Camera Input", &useCamera);
+
+    cvui::checkbox(settings_frame, 270, 300, "Record data", &record);
 
     if (!camera->getCalibrated())
     {
@@ -141,6 +144,17 @@ bool settings::getTargetRound()
 {
     return Target_round;
 }
+
+bool settings::getRecord()
+{
+    return record;
+}
+
+void settings::setRecord(bool state)
+{
+    this->record = state;
+}
+
 
 int settings::getInput()
 {

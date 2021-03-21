@@ -9,6 +9,7 @@
 
 #include <time.h>
 #include "Camera.h"
+#include "Record.h"
 
 #define SHOOTING_NAME "Shooting screen"
 
@@ -66,7 +67,7 @@ public :
     bool getIgnoreFrame();
 
     void startVideoCap();
-    int inputCamera(Camera *camera, double gamma);
+    int inputCamera(Camera *camera, double gamma, Record * record);
 
 	std::vector<cv::Vec2i> getHits();
 
