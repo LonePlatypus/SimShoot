@@ -1,7 +1,8 @@
 #include "Hit.h"
 
 //#define DEBUG_time
-//#define DEBUG_frame
+#define DEBUG_frame
+#define DEBUG_gamma_frame
 //#define DEBUG_frame_rec
 
 Hit::Hit()
@@ -181,14 +182,19 @@ int Hit::inputCamera(Camera *camera, double gamma , Record * record)
                 elapsedA = (double)(timeB-timeA) / CLOCKS_PER_SEC;
                 std::cout <<"elapsed moments : "<<elapsedA<<std::endl;
 #endif
-#ifdef DEBUG_frame
-                //cv::imshow("debug", laser);
+#ifdef DEBUG_gamma_frame
                 cv::imshow("resultat gamma corrected", res);
                 cv::waitKey(5);
 #endif
+#ifdef DEBUG_frame
+                cv::imshow("laser", laser);
+                cv::waitKey(5);
+#endif
 
-                if(moment.m00 > 50 && moment.m00 < 400)
+                if(moment.m00 > 15 && moment.m00 < 400)
                 {
+                    //std::cout << moment.m00 << std::endl;
+
                     int cX = int(moment.m10/moment.m00);
                     int cY = int(moment.m01/moment.m00);
                     cv::Vec2f hit(cX, cY);
@@ -206,17 +212,21 @@ int Hit::inputCamera(Camera *camera, double gamma , Record * record)
                     pt.x = hit(0);
                     pt.y = hit(1);
                     cv::circle(laser, pt, 6 , cv::Scalar(255,0,0),2);
-
-                    std::string name = "img_" + std::to_string(NbHit)+".jpg";
                     NbHit++;
-                    cv::imwrite(name, laser);
                     cv::imshow("hit_img", laser);
-                    cv::waitKey(1000);
+                    cv::waitKey(2000);
+                    cv::destroyWindow("hit_img");
+
 #endif
                     if(record->getRecording())
                     {
                         record->recordImg(laser);
                     }
+                }
+                else
+                {
+                    if(moment.m00)
+                    std::cout << moment.m00 << std::endl;
                 }
 
                 return 0;
@@ -256,8 +266,6 @@ void Hit::startVideoCap()
         //cap.set(cv::CAP_PROP_FRAME_HEIGHT, 1080);
         camOpen = true;
     }
-
-
 }
 
 //Recuperation de donnees souris

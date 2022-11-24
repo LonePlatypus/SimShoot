@@ -40,6 +40,9 @@ Display::Display()
 {
     GetScreenResoluton(display_width, display_height);
 
+    std::cout<<"Screen is [" <<display_width<<"x"<<display_height<<"]"<<std::endl;
+
+    //display white screen
     background = cv::Mat::zeros(cv::Size(display_width, display_height), CV_8UC3);
     background = cv::Scalar(255, 255, 255);
     resetDisplayedbackground();
@@ -55,7 +58,7 @@ Display::Display()
 int Display::addTarget(int X, int Y, int targetId)
 {
     cv::Mat overlay;
-    if (targetId <0 || targetId > targets.size())
+    if (targetId <0 || targetId > (int)targets.size())
     {
         return -1;
     }
@@ -81,7 +84,7 @@ int Display::addHit(int X, int Y)
 {
     if(X < 0 || Y <  0 || X > this->display_width || Y > this->display_height)
     {
-        std::cerr << "Hit coords are oustide bounds : ["<<X<<";"<<Y<<"]"<<std::endl;
+        std::cerr << "Hit coords are oustide bounds : ["<<X<<";"<<Y<<"] , display is ["<<this->display_width<<"x"<<this->display_height<<"]"<<std::endl;
         return -1;
     }
 
@@ -91,40 +94,46 @@ int Display::addHit(int X, int Y)
     int overlay_height = overlay.rows;
     int overlay_width = overlay.cols;
 
-    if (X - (int)(1 + overlay_width / 2) > 0 && Y - (int)(1 + overlay_height / 2) > 0 && X + (int)(1 + overlay_width / 2) < display_width && Y + (int)(1 + overlay_height / 2) < display_height)
+    bool impact_img = false;
+    if(impact_img)
     {
-        cv::Rect center(X - overlay_width / 2, Y - overlay_height / 2, overlay_width, overlay_height);
-
-        //on gère la transparence
-        cv::Mat roi = displayed_background(center);
-        double alpha = 1.0;
-        for (int r = 0; r < roi.rows; ++r)
+        if (X - (int)(1 + overlay_width / 2) > 0 && Y - (int)(1 + overlay_height / 2) > 0 && X + (int)(1 + overlay_width / 2) < display_width && Y + (int)(1 + overlay_height / 2) < display_height)
         {
-            for (int c = 0; c < roi.cols; ++c)
+            cv::Rect center(X - overlay_width / 2, Y - overlay_height / 2, overlay_width, overlay_height);
+
+            //on gère la transparence
+            cv::Mat roi = displayed_background(center);
+            double alpha = 1.0;
+            for (int r = 0; r < roi.rows; ++r)
             {
-                const cv::Vec4b& vf = overlay.at<cv::Vec4b>(r, c);
-                if (vf[3] > 0) // alpha channel > 0
+                for (int c = 0; c < roi.cols; ++c)
                 {
-                    // Blending
-                    cv::Vec3b& vb = roi.at<cv::Vec3b>(r, c);
-                    vb[0] = alpha * vf[0] + (1.0 - alpha) * vb[0];
-                    vb[1] = alpha * vf[1] + (1.0 - alpha) * vb[1];
-                    vb[2] = alpha * vf[2] + (1.0 - alpha) * vb[2];
+                    const cv::Vec4b& vf = overlay.at<cv::Vec4b>(r, c);
+                    if (vf[3] > 0) // alpha channel > 0
+                    {
+                        // Blending
+                        cv::Vec3b& vb = roi.at<cv::Vec3b>(r, c);
+                        vb[0] = alpha * vf[0] + (1.0 - alpha) * vb[0];
+                        vb[1] = alpha * vf[1] + (1.0 - alpha) * vb[1];
+                        vb[2] = alpha * vf[2] + (1.0 - alpha) * vb[2];
+                    }
                 }
             }
+
+            return 0;
         }
-
-
-        //overlay.copyTo(displayed_background(center));
-
-        return 0;
+        else
+        {
+            std::cout << "[Error] picture not added   X = "<<X<<"  | Y = "<<Y << std::endl;
+            return -1;
+        }
     }
     else
     {
-        std::cout << "[Error] picture not added   X = "<<X<<"  | Y = "<<Y << std::endl;
-        return -1;
+        cv::circle(displayed_background, cv::Point(X,Y),2, cv::Scalar(0,0,255),cv::FILLED, 2,0);
+        return 0;
     }
-
+    return 0;
 }
 
 

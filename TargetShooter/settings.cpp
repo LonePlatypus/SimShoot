@@ -97,7 +97,9 @@ int settings::displaySettings(Camera *camera , bool camOpen)
 
     if (cvui::button(settings_frame, 230, 530, 100, 50, "Calib' camera")) {
         // button was clicked
-        camera->getTransformCamScreenSimple();
+        //camera->getCameraIntrinsicparameters();
+        //camera->getTransformCamScreenAutomatic();
+        camera->getTransformCamScreenAutomaticArUco();
     }
 
     cvui::imshow(SETTINGS_NAME, this->settings_frame);
